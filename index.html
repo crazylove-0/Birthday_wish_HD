@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>A surprise awaits you... ✨</title>
+  <title>A Celestial Surprise... ✨</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,500;1,700&family=Sacramento&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -131,7 +131,7 @@
       border-color: #ffd700;
     }
 
-    /* SCREEN 1: GLOWING CRYSTAL MAGIC HEART ORB (Replaces Gift Box) */
+    /* SCREEN 1: Crystal Magic Heart Orb */
     .magic-orb-container {
       position: relative;
       width: 230px;
@@ -335,7 +335,7 @@
       margin-bottom: 25px;
     }
 
-    /* SCREEN 6: Cake & Counter (Exact 2008 calculation) */
+    /* SCREEN 6: Cake & Counter */
     .counter-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -455,7 +455,7 @@
     .timeline-content h4 { font-size: 12px; color: #ffd1dc; margin-bottom: 2px; }
     .timeline-content p { font-size: 10.5px; color: #d6b8c8; font-weight: 300; }
 
-    /* SCREEN 8: 3 PHOTOS ENTRY ANIMATIONS & LIQUID PINK GLASS FRAME */
+    /* SCREEN 8: 3 PHOTOS ENTRY ANIMATIONS & LIQUID PINK GLASS */
     .liquid-glass-stage {
       position: relative;
       width: 290px;
@@ -479,7 +479,6 @@
       transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    /* 3 Different Direction Entrance Animations */
     .slide-from-left {
       animation: entryLeft 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
     }
@@ -700,7 +699,40 @@
       color: #ffd166;
     }
 
-    /* SCREEN 15: Vintage Warm Golden Lined Journal */
+    /* SCREEN 15: Hindi Love Questions Box */
+    .quiz-card-box {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid rgba(255, 182, 193, 0.35);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 20px 16px;
+      width: 100%;
+      max-width: 320px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(255, 51, 119, 0.2);
+    }
+    .quiz-opt-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      padding: 12px 14px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+    }
+    .quiz-opt-btn:active, .quiz-opt-btn.selected {
+      background: linear-gradient(135deg, rgba(255, 51, 119, 0.4), rgba(255, 105, 180, 0.25));
+      border-color: #ff3377;
+      transform: scale(0.97);
+    }
+
+    /* SCREEN 16: Vintage Golden Lined Journal */
     .diary-scene {
       width: 310px;
       height: 380px;
@@ -773,11 +805,14 @@
 </head>
 <body>
 
-  <audio id="bgSong" src="Dooron%20Dooron%20Unplugged%20Paresh%20Pahuja%20320%20Kbps-[AudioTrimmer.com]%20(1).mp3" loop preload="auto"></audio>
+  <!-- Audio Element with Exact Trimmed Song Name -->
+  <audio id="bgSong" src="Dooron%20Dooron%20Unplugged%20Paresh%20Pahuja%20320%20Kbps-[AudioTrimmer.com].mp3" loop preload="auto"></audio>
+
   <canvas id="ambientSkyCanvas"></canvas>
 
   <div class="music-floating-btn" onclick="toggleMusic()">🎵</div>
 
+  <!-- Royal Curtains -->
   <div class="curtain-screen" id="curtainOverlay" style="display:none;">
     <div class="curtain-wing left-wing"></div>
     <div class="curtain-wing right-wing"></div>
@@ -788,6 +823,7 @@
 
   <div class="viewport">
 
+    <!-- SCREEN 1: Crystal Magic Heart Orb -->
     <div class="screen active" id="screen-gift">
       <h1 class="hero-title">A surprise awaits you . . . 🌟</h1>
       <p class="hero-subtitle">✨ Something special, just for you ✨</p>
@@ -802,6 +838,7 @@
       <p style="font-size: 13.5px; color: #ffab40; font-weight: 500;">Tap the crystal heart to unlock 🔮</p>
     </div>
 
+    <!-- SCREEN 2: Passcode Lock Screen -->
     <div class="screen" id="screen-lock">
       <div class="clock-widget" id="liveClock">23:01</div>
       <p class="hero-subtitle" style="margin-bottom: 6px; color: #ffb6c1;">Birthday Surprise 💖</p>
@@ -834,6 +871,7 @@
       </div>
     </div>
 
+    <!-- SCREEN 3: Minimalist Loading Screen -->
     <div class="screen" id="screen-loader-dots">
       <div class="pulse-dots-wrap">
         <div class="pulse-dot"></div>
@@ -843,6 +881,7 @@
       <div class="loading-title">Loading something special...</div>
     </div>
 
+    <!-- SCREEN 4: Bear Screen -->
     <div class="screen" id="screen-bear-reveal">
       <div class="bear-badge">🐻</div>
       <h1 class="bear-screen-title">There's something special<br>I want to tell you...</h1>
@@ -850,6 +889,7 @@
       <button class="btn-gold-rim" onclick="goToScreen('screen-cake')">Continue ✨</button>
     </div>
 
+    <!-- SCREEN 5: Birthday Cake & Exact 2008 Stats -->
     <div class="screen" id="screen-cake">
       <h1 class="hero-title">Happy Birthday Cutiepie 🎂</h1>
       <p class="hero-subtitle">The World Has Been Sweeter Since 2008 ❤️</p>
@@ -872,6 +912,7 @@
       <button class="btn-gold-rim" id="btnCakeNext" style="display:none;" onclick="goToScreen('screen-timeline')">Our Journey Timeline 🌟</button>
     </div>
 
+    <!-- SCREEN 6: Romantic Love Timeline -->
     <div class="screen" id="screen-timeline">
       <h1 class="hero-title">Our Constellation 💫</h1>
       <p class="hero-subtitle">Every moment that led me to you ✨</p>
@@ -913,6 +954,7 @@
       <button class="btn-gold-rim" onclick="goToScreen('screen-memories')">See Memories 📸</button>
     </div>
 
+    <!-- SCREEN 7: 3 Photos with Directional Glass Animations -->
     <div class="screen" id="screen-memories">
       <h1 class="hero-title">Cute Memories 💕</h1>
       <p class="hero-subtitle">Tap photo to see our moments</p>
@@ -927,6 +969,7 @@
       <button class="btn-gold-rim" onclick="nextPhoto()">Next Memory 📸</button>
     </div>
 
+    <!-- SCREEN 8: Reasons Flip Cards -->
     <div class="screen" id="screen-reasons">
       <h1 class="hero-title">Why I Adore You 💖</h1>
       <p class="hero-subtitle">Tap each card to reveal what I love about you</p>
@@ -953,6 +996,7 @@
       <button class="btn-gold-rim" id="btnReasonsNext" style="display:none;" onclick="goToScreen('screen-touchsync')">Feel My Presence 🤍</button>
     </div>
 
+    <!-- SCREEN 9: Heartbeat Touch Sync -->
     <div class="screen" id="screen-touchsync">
       <h1 class="hero-title">Heartbeat Sync 💓</h1>
       <p class="hero-subtitle">Place and hold your thumb on the heart</p>
@@ -966,6 +1010,7 @@
       <button class="btn-gold-rim" id="btnTouchNext" style="display:none;" onclick="goToScreen('screen-wishes')">Pop The Wishes 🎈</button>
     </div>
 
+    <!-- SCREEN 10: Balloons -->
     <div class="screen" id="screen-wishes">
       <h1 class="hero-title">Pop the Wishes 🎈</h1>
       <p class="hero-subtitle">Tap each balloon to reveal a wish</p>
@@ -983,6 +1028,7 @@
       <button class="btn-gold-rim" id="btnBalloonsNext" style="display:none;" onclick="goToScreen('screen-puzzle')">Solve The Surprise 🧩</button>
     </div>
 
+    <!-- SCREEN 11: Real Playable Sliding Puzzle -->
     <div class="screen" id="screen-puzzle">
       <h1 class="hero-title">Birthday Puzzle 🎂</h1>
       <p class="hero-subtitle">Tap tiles next to the dark slot to move them!</p>
@@ -996,6 +1042,7 @@
       <button class="btn-gold-rim" id="btnPuzzleNext" style="display:none; margin-top: 10px;" onclick="goToScreen('screen-scratch')">One Last Surprise ✨</button>
     </div>
 
+    <!-- SCREEN 12: Scratch Card -->
     <div class="screen" id="screen-scratch">
       <h1 class="hero-title">One Last Surprise ✨</h1>
       <p class="hero-subtitle">Scratch the card to reveal it 🪙</p>
@@ -1011,6 +1058,7 @@
       <button class="btn-gold-rim" id="btnScratchNext" style="display:none;" onclick="goToScreen('screen-coupons')">My Promises To You 🎟️</button>
     </div>
 
+    <!-- SCREEN 13: Coupons -->
     <div class="screen" id="screen-coupons">
       <h1 class="hero-title">Love Coupons 🎟️</h1>
       <p class="hero-subtitle">Valid Forever • Redeem anytime no questions asked!</p>
@@ -1041,9 +1089,25 @@
         </div>
       </div>
 
-      <button class="btn-gold-rim" onclick="goToScreen('screen-diary')">Open My Diary 📖</button>
+      <button class="btn-gold-rim" onclick="goToScreen('screen-quiz')">Kuch Dil Ki Baatein 💭❤️</button>
     </div>
 
+    <!-- SCREEN 14: 5 Hindi Romantic Questions -->
+    <div class="screen" id="screen-quiz">
+      <h1 class="hero-title">Dil Se Dil Tak 💌✨</h1>
+      <p class="hero-subtitle" id="quizCounterText">Sawaal 1 of 5 💕</p>
+
+      <div class="quiz-card-box">
+        <h3 id="quizQuestionText" style="font-size: 15px; color: #ffe6f2; line-height: 1.5; min-height: 50px; margin-bottom: 14px;"></h3>
+        <div id="quizOptionsWrap" style="display: flex; flex-direction: column; gap: 10px; width: 100%;"></div>
+        <p id="quizFeedback" style="min-height: 24px; color: #ffd166; font-size: 13px; font-weight: 500; margin-top: 12px;"></p>
+      </div>
+
+      <button class="btn-gold-rim" id="btnQuizNext" style="display:none;" onclick="nextLoveQuestion()">Agla Sawaal 🌸</button>
+      <button class="btn-gold-rim" id="btnGoToDiary" style="display:none;" onclick="goToScreen('screen-diary')">Open My Diary 📖</button>
+    </div>
+
+    <!-- SCREEN 15: Golden Lined Vintage Journal (Harsh's Letter) -->
     <div class="screen" id="screen-diary">
       <h1 class="hero-title">A Letter Just For You</h1>
       <p class="hero-subtitle">Written straight from my heart</p>
@@ -1076,7 +1140,6 @@
         }).catch(() => {});
       }
     }
-    // Listen to all touch/click interactions to force start audio
     window.addEventListener("click", unlockAndPlayAudio, { passive: true });
     window.addEventListener("touchstart", unlockAndPlayAudio, { passive: true });
     window.addEventListener("keydown", unlockAndPlayAudio, { passive: true });
@@ -1149,10 +1212,14 @@
         t.classList.add("active");
         if (id === "screen-cake") animateMilestones("2008-09-27");
         if (id === "screen-puzzle") initPlayablePuzzle();
+        if (id === "screen-quiz") {
+          currentQIndex = 0;
+          renderLoveQuestion();
+        }
       }
     }
 
-    // Glowing Magic Orb Unlock Function
+    // Glowing Magic Orb Unlock
     function openMagicOrb() {
       unlockAndPlayAudio();
       const orb = document.querySelector(".magic-orb-container");
@@ -1254,11 +1321,9 @@
         const frame = document.getElementById("photoFrameBox");
         const img = document.getElementById("polaroidImage");
         
-        // Remove previous animation classes
         frame.classList.remove("slide-from-left", "slide-from-right", "slide-from-bottom");
-        void frame.offsetWidth; // Trigger reflow for fresh animation
+        void frame.offsetWidth;
         
-        // Add new directional animation class
         frame.classList.add(photos[photoIndex].anim);
         img.src = photos[photoIndex].url;
         document.getElementById("polaroidCaption").innerText = photos[photoIndex].caption;
@@ -1328,6 +1393,7 @@
       }
     }
 
+    // Playable Puzzle
     const puzzleBoard = document.getElementById("puzzleBoard");
     let puzzleState = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -1377,6 +1443,7 @@
       document.getElementById("btnPuzzleNext").style.display = "inline-flex";
     }
 
+    // Scratch Card
     const scCvs = document.getElementById("scratchCanvas");
     const sCtx = scCvs.getContext("2d");
     sCtx.fillStyle = "#a88d9b";
@@ -1411,7 +1478,96 @@
       confetti({ particleCount: 30, spread: 45 });
     }
 
-    // Harsh's Letter (95% Smooth Writing Cadence)
+    // 5 Hindi Romantic Questions Logic
+    const loveQuestions = [
+      {
+        q: "Kabhi socha hai meri sabse favourite aadat kya hai tumhari? 💭❤️",
+        opts: [
+          "Jab tum bina baat ke hasti ho 😄✨",
+          "Jab tum gusse me cute muh banati ho 😤🥺",
+          "Bas tumhara mere sath hona... Sab kuch, bina shart! 💖"
+        ],
+        reaction: "Sach me, tumhara hona hi sabse pyaara hai! 🌸"
+      },
+      {
+        q: "Agar humare paas ek poora din ho bina kisi rok-tok ke, toh kya karenge? 🌙🚗",
+        opts: [
+          "Late night long drive aur ice-cream 🍨🚗",
+          "Chhat par baithkar dher saari baatein 🌌🤍",
+          "Dono, bas haath me tumhara haath ho 💕"
+        ],
+        reaction: "Bas haath thaame zindagi beet jaye! 🥺❤️"
+      },
+      {
+        q: "Mujhe tum kab sabse pyaari lagti ho? 🙈🌸",
+        opts: [
+          "Jab tum saj-dhaj ke aati ho ✨👗",
+          "Jab tum rooth kar nakhre dikhati ho 😤💖",
+          "Har ek pal, chahe tum jaisi bhi ho 👑❤️"
+        ],
+        reaction: "Har ek second me tumse aur pyaar ho jata hai! 💫"
+      },
+      {
+        q: "Ek sach batao, tumhare liye main kya hoon? 🥺🤍",
+        opts: [
+          "Ek accha dost jo sab sunta hai 🤝✨",
+          "Mera sabse safe aur comfort place 🏡💕",
+          "Jo hamesha hamesha sath rahega 🔐❤️"
+        ],
+        reaction: "Main hamesha tumhara comfort place rahunga! 🫂"
+      },
+      {
+        q: "Agar zindagi ka koi ek pal hamesha ke liye freeze karna ho? ⏳✨",
+        opts: [
+          "Hamari pehli lambi baat 📞💭",
+          "Jab hum pehli baar itna hase the 😂💖",
+          "Aane wala har ek pal jo tere sath hoga ♾️❤️"
+        ],
+        reaction: "Aane wala har lamha tere naam! 🎂🎉"
+      }
+    ];
+
+    let currentQIndex = 0;
+
+    function renderLoveQuestion() {
+      const qData = loveQuestions[currentQIndex];
+      document.getElementById("quizCounterText").innerText = `Sawaal ${currentQIndex + 1} of ${loveQuestions.length} 💕`;
+      document.getElementById("quizQuestionText").innerText = qData.q;
+      document.getElementById("quizFeedback").innerText = "";
+      document.getElementById("btnQuizNext").style.display = "none";
+      document.getElementById("btnGoToDiary").style.display = "none";
+
+      const wrap = document.getElementById("quizOptionsWrap");
+      wrap.innerHTML = "";
+
+      qData.opts.forEach((optText) => {
+        const b = document.createElement("button");
+        b.className = "quiz-opt-btn";
+        b.innerText = optText;
+        b.onclick = () => selectLoveOption(b, qData.reaction);
+        wrap.appendChild(b);
+      });
+    }
+
+    function selectLoveOption(btn, feedback) {
+      document.querySelectorAll(".quiz-opt-btn").forEach(el => el.classList.remove("selected"));
+      btn.classList.add("selected");
+      document.getElementById("quizFeedback").innerText = feedback;
+      confetti({ particleCount: 25, spread: 50 });
+
+      if (currentQIndex < loveQuestions.length - 1) {
+        document.getElementById("btnQuizNext").style.display = "inline-flex";
+      } else {
+        document.getElementById("btnGoToDiary").style.display = "inline-flex";
+      }
+    }
+
+    function nextLoveQuestion() {
+      currentQIndex++;
+      renderLoveQuestion();
+    }
+
+    // Natural Letter-By-Letter Cursive Handwriting in Golden Vintage Journal
     const diaryRawText = `My dearest,
 
 On this very special day, I want you to know how deeply loved you are.
