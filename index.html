@@ -5,16 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>A Celestial Surprise... ✨</title>
   
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,500;1,700&family=Sacramento&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600;700&family=Sacramento&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
-    :root {
-      --romantic-glow: rgba(255, 30, 110, 0.55);
-      --crystal-border: rgba(255, 200, 230, 0.45);
-      --glass-pink: rgba(255, 105, 180, 0.16);
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -22,56 +18,42 @@
       font-family: 'Poppins', sans-serif;
       user-select: none;
       -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
     body {
-      background: radial-gradient(circle at 50% 25%, #2a0b27 0%, #120417 55%, #050007 100%);
+      background: #0d0211;
       color: #fff;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
+      position: relative;
     }
 
-    #ambientSkyCanvas {
+    .ambient-bg {
       position: fixed;
       inset: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
+      background: radial-gradient(circle at 50% 25%, #2a0b27 0%, #110214 65%, #050007 100%);
       z-index: 1;
-    }
-
-    .aurora-mesh {
-      position: fixed;
-      width: 650px;
-      height: 650px;
-      background: radial-gradient(circle, rgba(255, 20, 120, 0.28) 0%, rgba(140, 20, 220, 0.2) 50%, transparent 70%);
-      filter: blur(85px);
-      border-radius: 50%;
       pointer-events: none;
-      z-index: 2;
-      animation: auroraFlow 14s ease-in-out infinite alternate;
-    }
-    @keyframes auroraFlow {
-      0% { transform: translate(-25%, -25%) scale(0.9); }
-      50% { transform: translate(20%, 15%) scale(1.2); }
-      100% { transform: translate(-10%, 25%) scale(1); }
+      transform: translateZ(0);
     }
 
     .viewport {
       position: relative;
       z-index: 5;
       width: 100%;
-      max-width: 414px;
-      height: 94vh;
-      max-height: 840px;
+      max-width: 420px;
+      height: 96vh;
+      max-height: 860px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 16px;
+      padding: 14px;
+      contain: layout paint;
     }
 
     .screen {
@@ -83,60 +65,60 @@
       justify-content: center;
       text-align: center;
       opacity: 0;
-      transform: scale(0.97);
-      transition: opacity 0.35s ease, transform 0.35s ease;
+      transform: scale(0.98) translateZ(0);
+      transition: opacity 0.16s ease-out, transform 0.16s ease-out;
+      will-change: opacity, transform;
     }
     .screen.active {
       display: flex;
       opacity: 1;
-      transform: scale(1);
+      transform: scale(1) translateZ(0);
     }
 
     h1.hero-title {
-      font-size: 25px;
+      font-size: 23px;
       font-weight: 700;
-      color: #e5dfff;
-      letter-spacing: -0.2px;
-      margin-bottom: 6px;
+      color: #f1edff;
+      margin-bottom: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
     }
     p.hero-subtitle {
-      font-size: 13px;
+      font-size: 12.5px;
       color: #d1b89d;
-      margin-bottom: 22px;
+      margin-bottom: 14px;
       font-weight: 400;
     }
 
     .btn-gold-rim {
-      background: rgba(18, 15, 32, 0.75);
+      background: #1a142b;
       border: 1.5px solid #b39255;
       color: #f7e6c4;
-      padding: 12px 34px;
+      padding: 10px 28px;
       border-radius: 30px;
-      font-size: 14.5px;
+      font-size: 13.5px;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(179, 146, 85, 0.25);
-      transition: all 0.25s ease;
-      margin-top: 18px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+      transition: transform 0.1s ease, border-color 0.1s ease;
+      margin-top: 14px;
     }
     .btn-gold-rim:active {
-      transform: scale(0.94);
+      transform: scale(0.95);
       border-color: #ffd700;
     }
 
-    /* SCREEN 1: Crystal Magic Heart Orb */
+    /* SCREEN 1: Magic Orb */
     .magic-orb-container {
       position: relative;
-      width: 230px;
-      height: 230px;
-      margin: 15px auto 25px;
+      width: 210px;
+      height: 210px;
+      margin: 10px auto 16px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -144,102 +126,89 @@
     }
     .orb-glow-ring {
       position: absolute;
-      inset: 10px;
+      inset: 12px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255, 51, 119, 0.35) 0%, rgba(255, 105, 180, 0.1) 60%, transparent 80%);
-      animation: orbPulse 3s infinite alternate ease-in-out;
+      background: radial-gradient(circle, rgba(255, 51, 119, 0.35) 0%, transparent 70%);
+      animation: orbPulse 2.5s infinite alternate ease-in-out;
     }
     @keyframes orbPulse {
-      0% { transform: scale(0.92); opacity: 0.6; }
-      100% { transform: scale(1.15); opacity: 1; filter: blur(8px); }
+      0% { transform: scale(0.95); opacity: 0.7; }
+      100% { transform: scale(1.1); opacity: 1; }
     }
     .crystal-sphere {
-      position: relative;
-      width: 175px;
-      height: 175px;
+      width: 165px;
+      height: 165px;
       border-radius: 50%;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 51, 119, 0.25) 50%, rgba(138, 43, 226, 0.35) 100%);
-      border: 2.5px solid rgba(255, 200, 230, 0.6);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7), inset 0 0 25px rgba(255, 182, 193, 0.4);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 51, 119, 0.25), rgba(138, 43, 226, 0.3));
+      border: 2px solid rgba(255, 200, 230, 0.6);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      animation: orbFloat 4s ease-in-out infinite alternate;
+      transition: transform 0.2s ease;
     }
-    @keyframes orbFloat {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-10px); }
-    }
+    .crystal-sphere:active { transform: scale(0.94); }
     .sphere-heart-icon {
-      font-size: 64px;
-      filter: drop-shadow(0 0 20px rgba(255, 51, 119, 0.9));
-      animation: heartBeatInside 1.4s ease-in-out infinite;
+      font-size: 58px;
+      animation: heartBeatInside 1.3s ease-in-out infinite;
     }
     @keyframes heartBeatInside {
       0%, 100% { transform: scale(1); }
-      15% { transform: scale(1.18); }
-      30% { transform: scale(1.05); }
-      45% { transform: scale(1.22); }
-    }
-    .magic-orb-container.opened .crystal-sphere {
-      transform: scale(1.35);
-      opacity: 0;
+      20% { transform: scale(1.15); }
+      40% { transform: scale(1.03); }
+      60% { transform: scale(1.18); }
     }
 
-    /* SCREEN 2: Glass Lock Screen */
+    /* SCREEN 2: Passcode */
     .clock-widget {
-      font-size: 50px;
+      font-size: 44px;
       font-weight: 700;
       letter-spacing: 2px;
       color: #fff;
       margin-bottom: 2px;
-      text-shadow: 0 0 25px rgba(255, 255, 255, 0.35);
     }
     .keypad-glass {
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      border-radius: 28px;
-      padding: 16px 14px;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-radius: 24px;
+      padding: 14px 12px;
       width: 100%;
-      max-width: 310px;
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
+      max-width: 295px;
     }
     .pin-dots {
       display: flex;
       justify-content: center;
-      gap: 15px;
-      margin: 10px 0 14px;
+      gap: 14px;
+      margin: 8px 0 12px;
     }
     .pin-dot {
-      width: 13px;
-      height: 13px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
       border: 2px solid #ff758c;
-      transition: all 0.2s;
+      transition: transform 0.1s, background-color 0.1s;
     }
     .pin-dot.filled {
       background: #ff1a75;
       border-color: #ff1a75;
-      box-shadow: 0 0 14px #ff1a75;
       transform: scale(1.2);
     }
     .key-matrix {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      gap: 8px;
     }
     .dial-btn {
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      width: 60px;
-      height: 60px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
-      font-size: 21px;
+      font-size: 20px;
       font-weight: 600;
       color: #fff;
       display: flex;
@@ -249,11 +218,11 @@
       cursor: pointer;
     }
     .dial-btn:active {
-      background: rgba(230, 29, 114, 0.4);
+      background: rgba(230, 29, 114, 0.5);
       transform: scale(0.9);
     }
 
-    /* SCREEN 3: Curtains Screen */
+    /* Curtains */
     .curtain-screen {
       position: fixed;
       inset: 0;
@@ -266,274 +235,284 @@
     .curtain-wing {
       width: 50%;
       height: 100%;
-      background: repeating-linear-gradient(90deg, #0a1b4d, #050f2f 25px, #102e82 50px);
-      box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.95);
-      transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+      background: linear-gradient(90deg, #091742, #040b24 40%, #0d256b);
+      box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.95);
+      transition: transform 0.75s cubic-bezier(0.77, 0, 0.175, 1);
     }
-    .curtain-screen.opened .left-wing { transform: translateX(-100%); }
-    .curtain-screen.opened .right-wing { transform: translateX(100%); }
+    .curtain-screen.opened .left-wing { transform: translate3d(-100%, 0, 0); }
+    .curtain-screen.opened .right-wing { transform: translate3d(100%, 0, 0); }
     .curtain-trigger {
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       z-index: 100000;
-      cursor: pointer;
     }
 
-    /* SCREEN 4: Loading Screen */
+    /* Loader */
     .pulse-dots-wrap {
       display: flex;
       justify-content: center;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 24px;
+      gap: 10px;
+      margin-bottom: 16px;
     }
     .pulse-dot {
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: #7c76b4;
-      animation: pulseBlink 1.4s infinite ease-in-out both;
+      background: #a29bfe;
+      animation: pulseBlink 1.2s infinite ease-in-out both;
     }
-    .pulse-dot:nth-child(1) { animation-delay: -0.32s; }
-    .pulse-dot:nth-child(2) { animation-delay: -0.16s; }
+    .pulse-dot:nth-child(1) { animation-delay: -0.3s; }
+    .pulse-dot:nth-child(2) { animation-delay: -0.15s; }
     @keyframes pulseBlink {
       0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
-      40% { transform: scale(1.2); opacity: 1; background: #a29bfe; box-shadow: 0 0 12px #a29bfe; }
-    }
-    .loading-title {
-      font-size: 16px;
-      color: #dfbc77;
-      font-weight: 500;
-      letter-spacing: 0.5px;
+      40% { transform: scale(1.2); opacity: 1; }
     }
 
-    /* SCREEN 5: Bear Screen */
-    .bear-badge {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      background: #120e24;
+    /* GIF Display Box */
+    .gif-display-box {
+      width: 120px;
+      height: 120px;
+      border-radius: 18px;
       border: 2px solid #b38b4d;
-      box-shadow: 0 0 25px rgba(179, 139, 77, 0.35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 44px;
-      margin: 0 auto 26px;
+      margin: 0 auto 14px;
+      overflow: hidden;
+      background: #140d21;
     }
-    .bear-screen-title {
-      font-size: 26px;
-      font-weight: 700;
-      color: #c9c4ff;
-      line-height: 1.35;
-      margin-bottom: 12px;
-    }
-    .bear-screen-sub {
-      font-size: 13.5px;
-      color: #ccab78;
-      margin-bottom: 25px;
-    }
+    .gif-display-box img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* SCREEN 6: Cake & Counter */
+    /* Cake & Counter */
     .counter-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 8px;
       width: 100%;
-      margin: 10px 0;
+      margin: 8px 0;
     }
     .counter-box {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 16px;
-      padding: 10px 4px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 8px 4px;
     }
-    .counter-box h3 { font-size: 22px; color: #ff8cb6; font-weight: 700; }
-    .counter-box span { font-size: 10px; color: #d6b4cc; letter-spacing: 0.8px; }
+    .counter-box h3 { font-size: 20px; color: #ff8cb6; font-weight: 700; }
+    .counter-box span { font-size: 10px; color: #d6b4cc; }
 
     .cake-showcase {
       position: relative;
-      width: 210px;
-      height: 135px;
-      margin: 14px auto 8px;
+      width: 190px;
+      height: 125px;
+      margin: 10px auto 4px;
       cursor: pointer;
     }
     .cake-base {
       position: absolute;
       bottom: 0;
-      width: 210px;
-      height: 58px;
+      width: 190px;
+      height: 52px;
       background: linear-gradient(180deg, #ffd0e0, #f7a8c4);
-      border-radius: 16px 16px 22px 22px;
-      box-shadow: 0 14px 35px rgba(0,0,0,0.55);
+      border-radius: 16px 16px 20px 20px;
     }
     .cake-top {
       position: absolute;
-      bottom: 48px;
-      left: 25px;
-      width: 160px;
-      height: 48px;
+      bottom: 42px;
+      left: 20px;
+      width: 150px;
+      height: 44px;
       background: linear-gradient(180deg, #fff0f5, #ffd9e8);
       border-radius: 12px 12px 0 0;
     }
     .candle {
       position: absolute;
-      bottom: 92px;
-      width: 22px;
-      height: 36px;
+      bottom: 82px;
+      width: 20px;
+      height: 32px;
       background: #ffffff;
-      border-radius: 8px;
+      border-radius: 6px;
       border: 2px solid #ffb6c1;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
       color: #ff1a75;
-      font-size: 15px;
+      font-size: 14px;
     }
-    .candle-1 { left: 68px; }
-    .candle-2 { left: 116px; }
+    .candle-1 { left: 60px; }
+    .candle-2 { left: 110px; }
     .flame {
       position: absolute;
-      top: -18px;
-      width: 12px;
-      height: 20px;
-      background: radial-gradient(circle at 50% 80%, #ff5500, #ffdd00, #ffffff);
+      top: -15px;
+      width: 10px;
+      height: 17px;
+      background: radial-gradient(circle at 50% 80%, #ff5500, #ffdd00);
       border-radius: 50% 50% 20% 20%;
-      box-shadow: 0 0 16px #ff9900, 0 0 32px #ff3300;
-      animation: flameMotion 0.35s infinite alternate ease-in-out;
+      box-shadow: 0 0 12px #ff9900;
+      animation: flameMotion 0.3s infinite alternate ease-in-out;
     }
     @keyframes flameMotion {
-      from { transform: scale(0.95) rotate(-3deg); }
-      to { transform: scale(1.18) rotate(4deg); }
+      from { transform: scale(0.95); }
+      to { transform: scale(1.15); }
     }
 
-    /* SCREEN 7: Romantic Love Timeline */
-    .timeline-wrap {
+    /* AESTHETIC BALLOON DECORATED POLAROID GLASS FRAME */
+    .aesthetic-frame-wrapper {
+      position: relative;
+      width: 285px;
+      margin: 10px auto 8px;
+    }
+    .balloon-decorations {
+      position: absolute;
+      top: -16px;
+      right: -12px;
       display: flex;
-      flex-direction: column;
-      gap: 12px;
+      align-items: center;
+      gap: 2px;
+      z-index: 8;
+      pointer-events: none;
+    }
+    .mini-decor-balloon {
+      border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+      box-shadow: inset 3px 3px 6px rgba(255,255,255,0.7), 0 4px 10px rgba(0,0,0,0.5);
+    }
+    .b-mini-1 { width: 28px; height: 35px; background: radial-gradient(circle at 35% 30%, #ff9ebb, #e6005c); transform: rotate(12deg); }
+    .b-mini-2 { width: 24px; height: 30px; background: radial-gradient(circle at 35% 30%, #ffe680, #cc8800); transform: translateY(6px) rotate(-8deg); }
+    .b-mini-3 { width: 22px; height: 28px; background: radial-gradient(circle at 35% 30%, #b380ff, #5900b3); transform: rotate(15deg); }
+
+    .gold-pin-clip {
+      position: absolute;
+      top: -10px;
+      left: 18px;
+      font-size: 20px;
+      z-index: 8;
+      filter: drop-shadow(0 2px 5px rgba(255,215,0,0.6));
+    }
+    .sparkle-badge {
+      position: absolute;
+      bottom: -8px;
+      left: -8px;
+      font-size: 20px;
+      z-index: 8;
+    }
+
+    .balloon-glass-frame {
       width: 100%;
-      max-width: 320px;
-      margin: 15px 0 10px;
-      position: relative;
-    }
-    .timeline-wrap::before {
-      content: '';
-      position: absolute;
-      left: 20px;
-      top: 10px;
-      bottom: 10px;
-      width: 2px;
-      background: linear-gradient(to bottom, #ff1a75, #ffd700, #a29bfe);
-      box-shadow: 0 0 10px #ff1a75;
-    }
-    .timeline-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(15px);
-      padding: 10px 14px;
-      border-radius: 16px;
-      text-align: left;
-    }
-    .timeline-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #ff1a75, #a30046);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-      flex-shrink: 0;
-      box-shadow: 0 0 12px rgba(255, 26, 117, 0.6);
-    }
-    .timeline-content h4 { font-size: 12px; color: #ffd1dc; margin-bottom: 2px; }
-    .timeline-content p { font-size: 10.5px; color: #d6b8c8; font-weight: 300; }
-
-    /* SCREEN 8: 3 PHOTOS ENTRY ANIMATIONS & LIQUID PINK GLASS */
-    .liquid-glass-stage {
-      position: relative;
-      width: 290px;
-      height: 350px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 10px auto;
-    }
-    .liquid-pink-frame {
-      position: absolute;
-      width: 280px;
-      background: linear-gradient(135deg, rgba(255, 105, 180, 0.22) 0%, rgba(255, 255, 255, 0.12) 50%, rgba(255, 20, 147, 0.18) 100%);
-      border: 2px solid rgba(255, 192, 220, 0.65);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      padding: 12px 12px 18px;
+      background: linear-gradient(135deg, rgba(255, 105, 180, 0.2) 0%, rgba(255, 255, 255, 0.12) 50%, rgba(138, 43, 226, 0.22) 100%);
+      border: 2px solid rgba(255, 200, 230, 0.65);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      padding: 12px 12px 16px;
       border-radius: 22px;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 105, 180, 0.35);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.75), inset 0 0 15px rgba(255, 105, 180, 0.3);
       cursor: pointer;
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: transform 0.15s ease;
     }
-
-    .slide-from-left {
-      animation: entryLeft 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-    }
-    @keyframes entryLeft {
-      0% { opacity: 0; transform: translateX(-90px) rotate(-8deg) scale(0.9); }
-      100% { opacity: 1; transform: translateX(0) rotate(0deg) scale(1); }
-    }
-
-    .slide-from-right {
-      animation: entryRight 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-    }
-    @keyframes entryRight {
-      0% { opacity: 0; transform: translateX(90px) rotate(8deg) scale(0.9); }
-      100% { opacity: 1; transform: translateX(0) rotate(0deg) scale(1); }
-    }
-
-    .slide-from-bottom {
-      animation: entryBottom 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-    }
-    @keyframes entryBottom {
-      0% { opacity: 0; transform: translateY(80px) scale(0.85); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    .liquid-pink-frame img {
+    .balloon-glass-frame:active { transform: scale(0.97); }
+    .balloon-glass-frame img {
       width: 100%;
       height: 260px;
       object-fit: cover;
       object-position: center 20%;
       border-radius: 14px;
       display: block;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
     }
-    .liquid-pink-frame p {
+    .balloon-glass-frame p {
       font-family: 'Sacramento', cursive;
-      font-size: 24px;
+      font-size: 23px;
       color: #ffe6f2;
-      margin-top: 10px;
+      margin-top: 8px;
       text-shadow: 0 0 10px rgba(255, 105, 180, 0.7);
     }
 
-    /* SCREEN 9: Flip Reasons */
+    /* Love Memory Matching Game */
+    .memory-game-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 64px);
+      gap: 8px;
+      margin: 10px auto;
+      justify-content: center;
+    }
+    .mem-card {
+      width: 64px;
+      height: 64px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 182, 193, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    .mem-card.flipped, .mem-card.matched {
+      background: rgba(255, 51, 119, 0.35);
+      border-color: #ff3377;
+      transform: scale(0.96);
+    }
+
+    /* Piano Game */
+    .piano-board {
+      display: flex;
+      gap: 6px;
+      margin: 14px auto;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 8px;
+      border-radius: 18px;
+      border: 1.5px solid rgba(255, 215, 0, 0.4);
+    }
+    .piano-key {
+      width: 52px;
+      height: 160px;
+      background: linear-gradient(180deg, #ffffff, #f0e6ff);
+      border-radius: 0 0 10px 10px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 12px;
+      color: #791054;
+      font-weight: 700;
+      font-size: 13px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+      transition: transform 0.08s ease, background 0.08s ease;
+    }
+    .piano-key:active, .piano-key.playing {
+      transform: translateY(4px);
+      background: linear-gradient(180deg, #ffd0e8, #ff85a2);
+    }
+
+    /* Grand Dedicated Video Screen */
+    .video-player-wrap {
+      width: 285px;
+      height: 360px;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 2px solid rgba(255, 200, 230, 0.65);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
+      margin: 8px auto;
+      background: #000;
+    }
+    .video-player-wrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Reasons Flip */
     .reasons-container {
       display: grid;
       grid-template-columns: repeat(2, 135px);
-      gap: 12px;
-      perspective: 1000px;
-      margin: 10px 0;
+      gap: 10px;
+      perspective: 800px;
+      margin: 8px 0;
     }
     .flip-card {
       width: 135px;
-      height: 120px;
+      height: 115px;
       position: relative;
       transform-style: preserve-3d;
-      transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);
+      transition: transform 0.3s ease;
       cursor: pointer;
     }
     .flip-card.flipped { transform: rotateY(180deg); }
@@ -541,109 +520,135 @@
       position: absolute;
       inset: 0;
       backface-visibility: hidden;
-      border-radius: 18px;
+      border-radius: 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 10px;
+      padding: 8px;
       text-align: center;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     }
     .card-front {
-      background: linear-gradient(135deg, rgba(255, 50, 130, 0.25), rgba(255, 255, 255, 0.08));
-      border: 1px solid rgba(255, 182, 193, 0.4);
-      font-size: 13.5px;
+      background: rgba(255, 50, 130, 0.2);
+      border: 1px solid rgba(255, 182, 193, 0.35);
+      font-size: 13px;
       color: #ff9ec4;
       font-weight: 600;
     }
     .card-back {
-      background: linear-gradient(135deg, #ff1a75, #800033);
+      background: linear-gradient(135deg, #ff1a75, #79084c);
       transform: rotateY(180deg);
       font-size: 11px;
-      line-height: 1.45;
+      line-height: 1.4;
       color: #fff;
     }
 
-    /* SCREEN 10: Heartbeat Sync */
+    /* Heartbeat Sync */
     .touch-sync-orb {
-      width: 135px;
-      height: 135px;
+      width: 130px;
+      height: 130px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.05);
       border: 2px dashed #ff3377;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin: 12px 0 8px;
+      margin: 10px 0 6px;
       cursor: pointer;
-      transition: all 0.3s;
     }
     .touch-sync-orb.holding {
       border-style: solid;
-      background: rgba(255, 20, 110, 0.4);
-      box-shadow: 0 0 50px rgba(255, 20, 110, 0.95);
-    }
-    .touch-sync-orb.holding .heart-icon {
-      animation: beatPulse 0.55s infinite ease-in-out;
-    }
-    @keyframes beatPulse {
-      0% { transform: scale(1); }
-      30% { transform: scale(1.35); }
-      50% { transform: scale(1.1); }
-      70% { transform: scale(1.4); }
-      100% { transform: scale(1); }
+      background: rgba(255, 20, 110, 0.35);
+      box-shadow: 0 0 35px rgba(255, 20, 110, 0.8);
+      transform: scale(1.04);
     }
 
-    /* SCREEN 11: Balloons */
-    .balloons-flex {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+    /* 3D Realistic Balloons */
+    .realistic-balloons-zone {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       gap: 12px;
-      margin: 14px 0;
-      width: 260px;
+      margin: 10px auto;
+      width: 310px;
     }
-    .balloon-item {
-      font-size: 40px;
+    .balloon-row { display: flex; justify-content: center; gap: 12px; }
+    .balloon-3d {
+      width: 54px;
+      height: 68px;
+      border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+      position: relative;
       cursor: pointer;
-      transition: transform 0.2s ease;
+      transition: transform 0.12s ease;
+      box-shadow: inset 6px 6px 12px rgba(255, 255, 255, 0.5), inset -6px -6px 14px rgba(0, 0, 0, 0.35), 0 8px 18px rgba(0, 0, 0, 0.4);
     }
-    .balloon-item:active { transform: scale(0.8); }
+    .balloon-3d::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 5px;
+      background: inherit;
+      border-radius: 2px;
+    }
+    .balloon-3d::before {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      width: 1px;
+      height: 16px;
+      background: rgba(255, 255, 255, 0.4);
+    }
+    .balloon-3d:active { transform: scale(0.88); }
+    .balloon-3d.popped { visibility: hidden; pointer-events: none; }
 
-    /* SCREEN 12: Playable Puzzle */
+    .b-pink   { background: radial-gradient(circle at 35% 30%, #ff80b5, #e6005c); }
+    .b-purple { background: radial-gradient(circle at 35% 30%, #d18aff, #7300b3); }
+    .b-blue   { background: radial-gradient(circle at 35% 30%, #70c4ff, #0066cc); }
+    .b-gold   { background: radial-gradient(circle at 35% 30%, #ffe066, #cc8800); }
+    .b-red    { background: radial-gradient(circle at 35% 30%, #ff6b6b, #cc0000); }
+    .b-cyan   { background: radial-gradient(circle at 35% 30%, #66ffff, #008899); }
+    .b-violet { background: radial-gradient(circle at 35% 30%, #ff80df, #a3007a); }
+    .b-orange { background: radial-gradient(circle at 35% 30%, #ffa366, #cc5200); }
+    .b-green  { background: radial-gradient(circle at 35% 30%, #85e085, #1f7a1f); }
+
+    /* Puzzle */
     .puzzle-board {
       display: grid;
-      grid-template-columns: repeat(3, 80px);
-      grid-template-rows: repeat(3, 80px);
+      grid-template-columns: repeat(3, 76px);
+      grid-template-rows: repeat(3, 76px);
       gap: 4px;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.08);
       padding: 6px;
-      border-radius: 18px;
-      margin: 8px 0;
+      border-radius: 16px;
+      margin: 6px 0;
     }
     .tile {
-      width: 80px;
-      height: 80px;
-      background-image: url('IMG_20260905_205301_817.jpg');
-      background-size: 240px 240px;
+      width: 76px;
+      height: 76px;
+      background-image: url('IMG_20260905_223215_019.jpg');
+      background-size: 228px 228px;
       border-radius: 8px;
       cursor: pointer;
     }
     .tile.blank {
-      background: rgba(10, 0, 15, 0.65) !important;
-      border: 1px dashed rgba(255, 255, 255, 0.25);
+      background: rgba(10, 0, 15, 0.7) !important;
+      border: 1px dashed rgba(255, 255, 255, 0.2);
     }
 
-    /* SCREEN 13: Scratch Card */
+    /* Scratch */
     .scratch-wrapper {
       position: relative;
-      width: 290px;
-      height: 160px;
-      border-radius: 18px;
+      width: 280px;
+      height: 150px;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.7);
-      margin: 10px 0;
+      margin: 8px 0;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
     }
     .scratch-secret {
       position: absolute;
@@ -653,89 +658,75 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 14px;
+      padding: 12px;
       text-align: center;
     }
-    #scratchCanvas {
-      position: absolute;
-      inset: 0;
-      cursor: grab;
-      z-index: 2;
-    }
+    #scratchCanvas { position: absolute; inset: 0; cursor: grab; z-index: 2; }
 
-    /* SCREEN 14: Love Coupons */
+    /* Coupons */
     .coupons-list {
       display: flex;
       flex-direction: column;
-      gap: 9px;
+      gap: 8px;
       width: 100%;
       max-width: 300px;
-      margin: 8px 0;
+      margin: 6px 0;
     }
     .coupon-card {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.06);
       border: 1px dashed #ff85ab;
-      border-radius: 14px;
-      padding: 10px 12px;
+      border-radius: 12px;
+      padding: 8px 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       text-align: left;
     }
-    .coupon-info h4 { font-size: 12px; color: #fff; margin-bottom: 2px; }
-    .coupon-info p { font-size: 10px; color: #d6b8c8; }
+    .coupon-info h4 { font-size: 12px; color: #fff; }
+    .coupon-info p { font-size: 9.5px; color: #d6b8c8; }
     .btn-claim {
       background: #ff1a75;
       border: none;
       color: #fff;
       font-size: 11px;
       padding: 5px 12px;
-      border-radius: 20px;
+      border-radius: 15px;
       cursor: pointer;
       font-weight: 600;
     }
-    .btn-claim.claimed {
-      background: rgba(255, 255, 255, 0.2);
-      color: #ffd166;
-    }
+    .btn-claim.claimed { background: rgba(255, 255, 255, 0.15); color: #ffd166; }
 
-    /* SCREEN 15: Hindi Love Questions Box */
+    /* Hindi Quiz */
     .quiz-card-box {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1.5px solid rgba(255, 182, 193, 0.35);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-radius: 24px;
-      padding: 20px 16px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 182, 193, 0.3);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 16px 14px;
       width: 100%;
-      max-width: 320px;
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(255, 51, 119, 0.2);
+      max-width: 310px;
     }
     .quiz-opt-btn {
       background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 16px;
-      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      padding: 10px 12px;
       color: #fff;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 500;
       text-align: left;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transition: all 0.2s ease;
     }
     .quiz-opt-btn:active, .quiz-opt-btn.selected {
-      background: linear-gradient(135deg, rgba(255, 51, 119, 0.4), rgba(255, 105, 180, 0.25));
+      background: rgba(255, 51, 119, 0.4);
       border-color: #ff3377;
-      transform: scale(0.97);
     }
 
-    /* SCREEN 16: Vintage Golden Lined Journal */
+    /* Golden Ruled Diary */
     .diary-scene {
-      width: 310px;
-      height: 380px;
+      width: 315px;
+      height: 400px;
       margin: 6px 0;
       position: relative;
     }
@@ -745,74 +736,72 @@
       background: linear-gradient(135deg, #2b1704 0%, #150901 100%);
       border-radius: 16px;
       border: 2px solid #b38b4d;
-      box-shadow: 0 20px 45px rgba(0,0,0,0.9), inset 0 0 15px rgba(255, 215, 0, 0.15);
-      position: relative;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      position: relative;
     }
     .diary-ribbon {
-      width: 32px;
+      width: 28px;
       height: 100%;
       background: linear-gradient(to right, #ffd700, #d48800);
       position: absolute;
-      left: 28px;
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+      left: 24px;
     }
-    
     .diary-open-view {
       display: none;
       width: 100%;
       height: 100%;
       background: #fdf5e6;
       background-image: 
-        linear-gradient(90deg, transparent 38px, #e8a87c 38px, #e8a87c 40px, transparent 40px),
+        linear-gradient(90deg, transparent 34px, #e8a87c 34px, #e8a87c 36px, transparent 36px),
         linear-gradient(#e4d1b9 1px, transparent 1px);
-      background-size: 100% 100%, 100% 28px;
-      border-radius: 12px;
-      padding: 18px 14px 18px 48px;
+      background-size: 100% 100%, 100% 26px;
+      border-radius: 14px;
+      padding: 18px 12px 18px 44px;
       text-align: left;
       font-family: 'Dancing Script', cursive;
-      font-size: 18px;
-      line-height: 28px;
+      font-size: 16px;
+      line-height: 26px;
       color: #3b220c;
       overflow-y: auto;
-      box-shadow: inset 0 0 25px rgba(100, 60, 20, 0.15), 0 15px 40px rgba(0,0,0,0.8);
       white-space: pre-wrap;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
     }
 
     .music-floating-btn {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 42px;
-      height: 42px;
+      bottom: 18px;
+      right: 18px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      background: rgba(20, 16, 38, 0.85);
+      background: rgba(20, 16, 38, 0.9);
       border: 1px solid #ab8e53;
       color: #f7e6c4;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
+      font-size: 16px;
       z-index: 100;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     }
   </style>
 </head>
 <body>
 
-  <!-- Audio Element with Exact Trimmed Song Name -->
-  <audio id="bgSong" src="Dooron%20Dooron%20Unplugged%20Paresh%20Pahuja%20320%20Kbps-[AudioTrimmer.com].mp3" loop preload="auto"></audio>
+  <!-- Background Audio -->
+  <audio id="bgSong" loop preload="auto" playsinline>
+    <source src="Dooron Dooron Unplugged Paresh Pahuja 320 Kbps-[AudioTrimmer.com].mp3" type="audio/mpeg">
+    <source src="Dooron%20Dooron%20Unplugged%20Paresh%20Pahuja%20320%20Kbps-[AudioTrimmer.com].mp3" type="audio/mpeg">
+  </audio>
 
-  <canvas id="ambientSkyCanvas"></canvas>
+  <div class="ambient-bg"></div>
+  <div class="music-floating-btn" id="musicBtn" onclick="toggleMusic()">🎵</div>
 
-  <div class="music-floating-btn" onclick="toggleMusic()">🎵</div>
-
-  <!-- Royal Curtains -->
+  <!-- Curtains -->
   <div class="curtain-screen" id="curtainOverlay" style="display:none;">
     <div class="curtain-wing left-wing"></div>
     <div class="curtain-wing right-wing"></div>
@@ -823,7 +812,7 @@
 
   <div class="viewport">
 
-    <!-- SCREEN 1: Crystal Magic Heart Orb -->
+    <!-- SCREEN 1: Magic Orb -->
     <div class="screen active" id="screen-gift">
       <h1 class="hero-title">A surprise awaits you . . . 🌟</h1>
       <p class="hero-subtitle">✨ Something special, just for you ✨</p>
@@ -835,16 +824,16 @@
         </div>
       </div>
 
-      <p style="font-size: 13.5px; color: #ffab40; font-weight: 500;">Tap the crystal heart to unlock 🔮</p>
+      <p style="font-size: 13px; color: #ffab40; font-weight: 500;">Tap the crystal heart to unlock 🔮</p>
     </div>
 
-    <!-- SCREEN 2: Passcode Lock Screen -->
+    <!-- SCREEN 2: Lock -->
     <div class="screen" id="screen-lock">
       <div class="clock-widget" id="liveClock">23:01</div>
       <p class="hero-subtitle" style="margin-bottom: 6px; color: #ffb6c1;">Birthday Surprise 💖</p>
       
       <div class="keypad-glass">
-        <div style="font-size: 22px;" id="lockIcon">🔒</div>
+        <div style="font-size: 20px;" id="lockIcon">🔒</div>
         <p style="font-size: 11px; margin-top: 2px; color: #ffb6c1;">Enter secret code 💕 (Hint: 2709)</p>
 
         <div class="pin-dots">
@@ -864,38 +853,40 @@
           <button class="dial-btn" onclick="pressKey(7)">7</button>
           <button class="dial-btn" onclick="pressKey(8)">8</button>
           <button class="dial-btn" onclick="pressKey(9)">9</button>
-          <button class="dial-btn" style="font-size: 16px;" onclick="clearKey()">✕</button>
+          <button class="dial-btn" style="font-size: 15px;" onclick="clearKey()">✕</button>
           <button class="dial-btn" onclick="pressKey(0)">0</button>
-          <button class="dial-btn" style="font-size: 18px;" onclick="backspaceKey()">⌫</button>
+          <button class="dial-btn" style="font-size: 16px;" onclick="backspaceKey()">⌫</button>
         </div>
       </div>
     </div>
 
-    <!-- SCREEN 3: Minimalist Loading Screen -->
+    <!-- SCREEN 3: Loader -->
     <div class="screen" id="screen-loader-dots">
       <div class="pulse-dots-wrap">
         <div class="pulse-dot"></div>
         <div class="pulse-dot"></div>
         <div class="pulse-dot"></div>
       </div>
-      <div class="loading-title">Loading something special...</div>
+      <div style="font-size: 15px; color: #dfbc77;">Loading something special...</div>
     </div>
 
-    <!-- SCREEN 4: Bear Screen -->
+    <!-- SCREEN 4: Bear Reveal Screen -->
     <div class="screen" id="screen-bear-reveal">
-      <div class="bear-badge">🐻</div>
-      <h1 class="bear-screen-title">There's something special<br>I want to tell you...</h1>
-      <p class="bear-screen-sub">that's why I made something special for you...</p>
+      <div class="gif-display-box">
+        <img src="8b2f25f452d472f9cf68aac13d7ea77c.gif" alt="Cute Bear">
+      </div>
+      <h1 class="hero-title" style="font-size: 22px; line-height: 1.35;">There's something special<br>I want to tell you...</h1>
+      <p class="hero-subtitle" style="margin-top: 6px;">that's why I made something special for you...</p>
       <button class="btn-gold-rim" onclick="goToScreen('screen-cake')">Continue ✨</button>
     </div>
 
-    <!-- SCREEN 5: Birthday Cake & Exact 2008 Stats -->
+    <!-- SCREEN 5: Cake & Counter -->
     <div class="screen" id="screen-cake">
       <h1 class="hero-title">Happy Birthday Cutiepie 🎂</h1>
       <p class="hero-subtitle">The World Has Been Sweeter Since 2008 ❤️</p>
 
       <div class="counter-grid">
-        <div class="counter-box"><h3 id="cYears">0</h3><span>YEARS</span></div>
+        <div class="counter-box"><h3 id="cYears">18</h3><span>YEARS</span></div>
         <div class="counter-box"><h3 id="cDays">0</h3><span>DAYS</span></div>
         <div class="counter-box"><h3 id="cHours">0</h3><span>HOURS</span></div>
         <div class="counter-box"><h3 id="cMins">0</h3><span>MINUTES</span></div>
@@ -908,71 +899,230 @@
         <div class="candle candle-2">8<div class="flame" id="flame2"></div></div>
       </div>
 
-      <p id="cakeInstruction" style="font-size: 12px; color: #ffd166; margin-top: 8px;">Tap the cake to blow the candles 🌬️</p>
-      <button class="btn-gold-rim" id="btnCakeNext" style="display:none;" onclick="goToScreen('screen-timeline')">Our Journey Timeline 🌟</button>
+      <p id="cakeInstruction" style="font-size: 12px; color: #ffd166; margin-top: 6px;">Tap the cake to blow the candles 🌬️</p>
+      <button class="btn-gold-rim" id="btnCakeNext" style="display:none;" onclick="goToScreen('screen-photo-1')">Open Chapter 1 🌸</button>
     </div>
 
-    <!-- SCREEN 6: Romantic Love Timeline -->
-    <div class="screen" id="screen-timeline">
-      <h1 class="hero-title">Our Constellation 💫</h1>
-      <p class="hero-subtitle">Every moment that led me to you ✨</p>
+    <!-- SCREEN 6: PHOTO 1 (Aesthetic Decorated Frame) -->
+    <div class="screen" id="screen-photo-1">
+      <h1 class="hero-title">Chapter 1: The Beginning 🌸</h1>
+      <p class="hero-subtitle">Where all the magic started</p>
 
-      <div class="timeline-wrap">
-        <div class="timeline-item">
-          <div class="timeline-icon">🌸</div>
-          <div class="timeline-content">
-            <h4>The Day We Began</h4>
-            <p>A simple "hello" that quietly changed my entire world forever.</p>
-          </div>
+      <div class="aesthetic-frame-wrapper">
+        <div class="gold-pin-clip">📌</div>
+        <div class="balloon-decorations">
+          <div class="mini-decor-balloon b-mini-1"></div>
+          <div class="mini-decor-balloon b-mini-2"></div>
+          <div class="mini-decor-balloon b-mini-3"></div>
         </div>
-
-        <div class="timeline-item">
-          <div class="timeline-icon">✨</div>
-          <div class="timeline-content">
-            <h4>The Sparkle in Your Eyes</h4>
-            <p>The moment I realized your smile is my favourite place to be.</p>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-icon">💖</div>
-          <div class="timeline-content">
-            <h4>My Permanent Comfort</h4>
-            <p>No matter how chaotic life gets, with you I am always at peace.</p>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-icon">🎂</div>
-          <div class="timeline-content">
-            <h4>Today: 18 Beautiful Years</h4>
-            <p>Celebrating the greatest gift the universe ever gave me — YOU.</p>
-          </div>
+        <div class="sparkle-badge">✨</div>
+        <div class="balloon-glass-frame">
+          <img src="IMG_20260905_205301_817.jpg" alt="Memory 1">
+          <p>Our first sweet adventure together 💕</p>
         </div>
       </div>
 
-      <button class="btn-gold-rim" onclick="goToScreen('screen-memories')">See Memories 📸</button>
+      <button class="btn-gold-rim" onclick="goToScreen('screen-memorygame')">Play Love Match 🎴</button>
     </div>
 
-    <!-- SCREEN 7: 3 Photos with Directional Glass Animations -->
-    <div class="screen" id="screen-memories">
-      <h1 class="hero-title">Cute Memories 💕</h1>
-      <p class="hero-subtitle">Tap photo to see our moments</p>
+    <!-- SCREEN 7: Love Memory Matching Game -->
+    <div class="screen" id="screen-memorygame">
+      <h1 class="hero-title">Match Our Love Pairs 🎴</h1>
+      <p class="hero-subtitle">Match all 4 pairs to proceed! 💕</p>
 
-      <div class="liquid-glass-stage">
-        <div class="liquid-pink-frame slide-from-left" id="photoFrameBox" onclick="nextPhoto()">
-          <img id="polaroidImage" src="IMG_20260905_205301_817.jpg" alt="Memory">
-          <p id="polaroidCaption">Our first sweet adventure together 🌸</p>
+      <div class="memory-game-grid" id="memoryGrid"></div>
+
+      <button class="btn-gold-rim" id="btnMemNext" style="display:none;" onclick="goToScreen('screen-photo-2')">Open Chapter 2 📸</button>
+    </div>
+
+    <!-- SCREEN 8: PHOTO 2 (Aesthetic Decorated Frame) -->
+    <div class="screen" id="screen-photo-2">
+      <h1 class="hero-title">Chapter 2: Purest Smile ✨</h1>
+      <p class="hero-subtitle">Your smile is my favourite place</p>
+
+      <div class="aesthetic-frame-wrapper">
+        <div class="gold-pin-clip">📌</div>
+        <div class="balloon-decorations">
+          <div class="mini-decor-balloon b-mini-2"></div>
+          <div class="mini-decor-balloon b-mini-1"></div>
+          <div class="mini-decor-balloon b-mini-3"></div>
+        </div>
+        <div class="sparkle-badge">💖</div>
+        <div class="balloon-glass-frame">
+          <img src="IMG_20260905_223215_019.jpg" alt="Memory 2">
+          <p>Making every moment magical ✨</p>
         </div>
       </div>
 
-      <button class="btn-gold-rim" onclick="nextPhoto()">Next Memory 📸</button>
+      <button class="btn-gold-rim" onclick="goToScreen('screen-piano')">Next: Play Piano 🎹</button>
     </div>
 
-    <!-- SCREEN 8: Reasons Flip Cards -->
+    <!-- SCREEN 9: Piano Game -->
+    <div class="screen" id="screen-piano">
+      <h1 class="hero-title">Play Our Melody 🎹</h1>
+      <p class="hero-subtitle">Tap each key to create our song ✨</p>
+
+      <div class="piano-board">
+        <div class="piano-key" onclick="playPianoNote(261.63, this)">C 💕</div>
+        <div class="piano-key" onclick="playPianoNote(293.66, this)">D 🌸</div>
+        <div class="piano-key" onclick="playPianoNote(329.63, this)">E 💖</div>
+        <div class="piano-key" onclick="playPianoNote(349.23, this)">F ✨</div>
+        <div class="piano-key" onclick="playPianoNote(392.00, this)">G 🤍</div>
+      </div>
+
+      <p id="pianoCountText" style="font-size: 12px; color: #ffd166;">Tap any 5 notes to continue 🎵</p>
+      <button class="btn-gold-rim" id="btnPianoNext" style="display:none;" onclick="goToScreen('screen-photo-3')">Open Chapter 3 🥂</button>
+    </div>
+
+    <!-- SCREEN 10: PHOTO 3 (Aesthetic Decorated Frame) -->
+    <div class="screen" id="screen-photo-3">
+      <h1 class="hero-title">Chapter 3: Endless Magic 🥂</h1>
+      <p class="hero-subtitle">To infinite memories together</p>
+
+      <div class="aesthetic-frame-wrapper">
+        <div class="gold-pin-clip">📌</div>
+        <div class="balloon-decorations">
+          <div class="mini-decor-balloon b-mini-3"></div>
+          <div class="mini-decor-balloon b-mini-2"></div>
+          <div class="mini-decor-balloon b-mini-1"></div>
+        </div>
+        <div class="sparkle-badge">🎀</div>
+        <div class="balloon-glass-frame">
+          <img src="IMG_20260905_225000_569.jpg" alt="Memory 3">
+          <p>To endless beautiful memories ahead 🥂</p>
+        </div>
+      </div>
+
+      <button class="btn-gold-rim" onclick="goToScreen('screen-puzzle')">Solve The Puzzle 🧩</button>
+    </div>
+
+    <!-- SCREEN 11: Playable Puzzle -->
+    <div class="screen" id="screen-puzzle">
+      <h1 class="hero-title">Birthday Puzzle 🎂</h1>
+      <p class="hero-subtitle">Tap tiles next to the dark slot to move!</p>
+
+      <div class="puzzle-board" id="puzzleBoard"></div>
+
+      <div style="display: flex; gap: 8px;">
+        <button class="btn-gold-rim" style="padding: 8px 18px;" onclick="shufflePlayablePuzzle()">🔀 Shuffle</button>
+        <button class="btn-gold-rim" style="padding: 8px 18px;" onclick="solvePlayablePuzzle()">✨ Solve it</button>
+      </div>
+      <button class="btn-gold-rim" id="btnPuzzleNext" style="display:none; margin-top: 8px;" onclick="goToScreen('screen-photo-4')">Open Chapter 4 💖</button>
+    </div>
+
+    <!-- SCREEN 12: PHOTO 4 (Aesthetic Decorated Frame) -->
+    <div class="screen" id="screen-photo-4">
+      <h1 class="hero-title">Chapter 4: My Safest Haven 🏡</h1>
+      <p class="hero-subtitle">With you, everything feels right</p>
+
+      <div class="aesthetic-frame-wrapper">
+        <div class="gold-pin-clip">📌</div>
+        <div class="balloon-decorations">
+          <div class="mini-decor-balloon b-mini-1"></div>
+          <div class="mini-decor-balloon b-mini-3"></div>
+          <div class="mini-decor-balloon b-mini-2"></div>
+        </div>
+        <div class="sparkle-badge">🌸</div>
+        <div class="balloon-glass-frame">
+          <img src="images.jpg" alt="Memory 4">
+          <p>Every smile of yours is pure magic 💖</p>
+        </div>
+      </div>
+
+      <button class="btn-gold-rim" onclick="goToScreen('screen-balloons')">Pop The Balloons 🎈</button>
+    </div>
+
+    <!-- SCREEN 13: 3D Realistic Balloons (4-3-2 Layout) -->
+    <div class="screen" id="screen-balloons">
+      <h1 class="hero-title">Pop The Balloons 🎈</h1>
+      <p class="hero-subtitle">Pop all 9 balloons to reveal wishes!</p>
+
+      <div class="realistic-balloons-zone">
+        <div class="balloon-row">
+          <div class="balloon-3d b-pink" onclick="popRealisticBalloon(0, this)"></div>
+          <div class="balloon-3d b-purple" onclick="popRealisticBalloon(1, this)"></div>
+          <div class="balloon-3d b-blue" onclick="popRealisticBalloon(2, this)"></div>
+          <div class="balloon-3d b-gold" onclick="popRealisticBalloon(3, this)"></div>
+        </div>
+        <div class="balloon-row">
+          <div class="balloon-3d b-red" onclick="popRealisticBalloon(4, this)"></div>
+          <div class="balloon-3d b-cyan" onclick="popRealisticBalloon(5, this)"></div>
+          <div class="balloon-3d b-violet" onclick="popRealisticBalloon(6, this)"></div>
+        </div>
+        <div class="balloon-row">
+          <div class="balloon-3d b-orange" onclick="popRealisticBalloon(7, this)"></div>
+          <div class="balloon-3d b-green" onclick="popRealisticBalloon(8, this)"></div>
+        </div>
+      </div>
+
+      <p id="balloonWishText" style="min-height: 36px; color: #ffd166; font-size: 13px; font-weight: 500;">Tap any balloon! ✨</p>
+      <button class="btn-gold-rim" id="btnBalloonsNext" style="display:none;" onclick="goToScreen('screen-photo-5')">Open Chapter 5 💫</button>
+    </div>
+
+    <!-- SCREEN 14: PHOTO 5 (Aesthetic Decorated Frame) -->
+    <div class="screen" id="screen-photo-5">
+      <h1 class="hero-title">Chapter 5: Written in Stars 💫</h1>
+      <p class="hero-subtitle">My permanent comfort place</p>
+
+      <div class="aesthetic-frame-wrapper">
+        <div class="gold-pin-clip">📌</div>
+        <div class="balloon-decorations">
+          <div class="mini-decor-balloon b-mini-2"></div>
+          <div class="mini-decor-balloon b-mini-1"></div>
+          <div class="mini-decor-balloon b-mini-3"></div>
+        </div>
+        <div class="sparkle-badge">🤍</div>
+        <div class="balloon-glass-frame">
+          <img src="images (1).jpeg" alt="Memory 5">
+          <p>My safest and favourite comfort place 🏡</p>
+        </div>
+      </div>
+
+      <button class="btn-gold-rim" onclick="goToScreen('screen-scratch')">Scratch & Win 🪙</button>
+    </div>
+
+    <!-- SCREEN 15: Scratch Card -->
+    <div class="screen" id="screen-scratch">
+      <h1 class="hero-title">One Last Surprise ✨</h1>
+      <p class="hero-subtitle">Scratch the card to reveal it 🪙</p>
+
+      <div class="scratch-wrapper">
+        <div class="scratch-secret">
+          <h2 style="font-size: 18px; color: #fff;">🎉 Happy Birthday! 🎉</h2>
+          <p style="font-size: 11px; color: #ffd166; margin-top: 4px;">You found the hidden treasure! You mean everything to me ❤️</p>
+        </div>
+        <canvas id="scratchCanvas" width="280" height="150"></canvas>
+      </div>
+
+      <button class="btn-gold-rim" id="btnScratchNext" style="display:none;" onclick="goToScreen('screen-photo-6')">Open Chapter 6 👑</button>
+    </div>
+
+    <!-- SCREEN 16: PHOTO 6 (Aesthetic Decorated Frame) -->
+    <div class="screen" id="screen-photo-6">
+      <h1 class="hero-title">Chapter 6: Forever Yours 👑</h1>
+      <p class="hero-subtitle">Grateful for you every second</p>
+
+      <div class="aesthetic-frame-wrapper">
+        <div class="gold-pin-clip">📌</div>
+        <div class="balloon-decorations">
+          <div class="mini-decor-balloon b-mini-3"></div>
+          <div class="mini-decor-balloon b-mini-1"></div>
+          <div class="mini-decor-balloon b-mini-2"></div>
+        </div>
+        <div class="sparkle-badge">✨</div>
+        <div class="balloon-glass-frame">
+          <img src="images (2).jpeg" alt="Memory 6">
+          <p>Forever grateful for you in my life 👑❤️</p>
+        </div>
+      </div>
+
+      <button class="btn-gold-rim" onclick="goToScreen('screen-reasons')">Why I Adore You 💖</button>
+    </div>
+
+    <!-- SCREEN 17: Reasons Flip -->
     <div class="screen" id="screen-reasons">
       <h1 class="hero-title">Why I Adore You 💖</h1>
-      <p class="hero-subtitle">Tap each card to reveal what I love about you</p>
+      <p class="hero-subtitle">Tap each card to reveal</p>
 
       <div class="reasons-container">
         <div class="flip-card" onclick="flipCard(this)">
@@ -996,72 +1146,24 @@
       <button class="btn-gold-rim" id="btnReasonsNext" style="display:none;" onclick="goToScreen('screen-touchsync')">Feel My Presence 🤍</button>
     </div>
 
-    <!-- SCREEN 9: Heartbeat Touch Sync -->
+    <!-- SCREEN 18: Heartbeat Sync -->
     <div class="screen" id="screen-touchsync">
       <h1 class="hero-title">Heartbeat Sync 💓</h1>
       <p class="hero-subtitle">Place and hold your thumb on the heart</p>
 
       <div class="touch-sync-orb" id="touchSyncBox">
-        <div class="heart-icon" style="font-size: 44px;">❤️</div>
-        <span style="font-size: 11.5px; color: #ffd166; margin-top: 4px;" id="touchProgress">Hold for 3s...</span>
+        <div class="heart-icon" style="font-size: 40px;">❤️</div>
+        <span style="font-size: 11px; color: #ffd166; margin-top: 4px;" id="touchProgress">Hold for 3s...</span>
       </div>
 
       <p id="touchSyncStatus" style="font-size: 12px; color: #ffd166; min-height: 20px;">Feel the rhythm of my love for you...</p>
-      <button class="btn-gold-rim" id="btnTouchNext" style="display:none;" onclick="goToScreen('screen-wishes')">Pop The Wishes 🎈</button>
+      <button class="btn-gold-rim" id="btnTouchNext" style="display:none;" onclick="goToScreen('screen-coupons')">My Promises To You 🎟️</button>
     </div>
 
-    <!-- SCREEN 10: Balloons -->
-    <div class="screen" id="screen-wishes">
-      <h1 class="hero-title">Pop the Wishes 🎈</h1>
-      <p class="hero-subtitle">Tap each balloon to reveal a wish</p>
-
-      <div class="balloons-flex">
-        <div class="balloon-item" onclick="popBalloon(0, this)">🎈</div>
-        <div class="balloon-item" onclick="popBalloon(1, this)">🎈</div>
-        <div class="balloon-item" onclick="popBalloon(2, this)">🎈</div>
-        <div class="balloon-item" onclick="popBalloon(3, this)">🎈</div>
-        <div class="balloon-item" onclick="popBalloon(4, this)">🎈</div>
-        <div class="balloon-item" onclick="popBalloon(5, this)">🎈</div>
-      </div>
-
-      <p id="balloonWishText" style="min-height: 44px; color: #ffd166; font-size: 13px; font-weight: 500;">Tap any balloon! ✨</p>
-      <button class="btn-gold-rim" id="btnBalloonsNext" style="display:none;" onclick="goToScreen('screen-puzzle')">Solve The Surprise 🧩</button>
-    </div>
-
-    <!-- SCREEN 11: Real Playable Sliding Puzzle -->
-    <div class="screen" id="screen-puzzle">
-      <h1 class="hero-title">Birthday Puzzle 🎂</h1>
-      <p class="hero-subtitle">Tap tiles next to the dark slot to move them!</p>
-
-      <div class="puzzle-board" id="puzzleBoard"></div>
-
-      <div style="display: flex; gap: 10px;">
-        <button class="btn-gold-rim" style="padding: 10px 22px;" onclick="shufflePlayablePuzzle()">🔀 Shuffle</button>
-        <button class="btn-gold-rim" style="padding: 10px 22px;" onclick="solvePlayablePuzzle()">✨ Solve it</button>
-      </div>
-      <button class="btn-gold-rim" id="btnPuzzleNext" style="display:none; margin-top: 10px;" onclick="goToScreen('screen-scratch')">One Last Surprise ✨</button>
-    </div>
-
-    <!-- SCREEN 12: Scratch Card -->
-    <div class="screen" id="screen-scratch">
-      <h1 class="hero-title">One Last Surprise ✨</h1>
-      <p class="hero-subtitle">Scratch the card to reveal it 🪙</p>
-
-      <div class="scratch-wrapper">
-        <div class="scratch-secret">
-          <h2 style="font-size: 20px; color: #fff;">🎉 Happy Birthday! 🎉</h2>
-          <p style="font-size: 12px; color: #ffd166; margin-top: 4px;">You found the hidden treasure! You mean everything to me ❤️</p>
-        </div>
-        <canvas id="scratchCanvas" width="290" height="160"></canvas>
-      </div>
-
-      <button class="btn-gold-rim" id="btnScratchNext" style="display:none;" onclick="goToScreen('screen-coupons')">My Promises To You 🎟️</button>
-    </div>
-
-    <!-- SCREEN 13: Coupons -->
+    <!-- SCREEN 19: Coupons -->
     <div class="screen" id="screen-coupons">
       <h1 class="hero-title">Love Coupons 🎟️</h1>
-      <p class="hero-subtitle">Valid Forever • Redeem anytime no questions asked!</p>
+      <p class="hero-subtitle">Valid Forever • Redeem anytime!</p>
 
       <div class="coupons-list">
         <div class="coupon-card">
@@ -1089,25 +1191,40 @@
         </div>
       </div>
 
+      <button class="btn-gold-rim" onclick="goToScreen('screen-video')">Watch Our Video 🎬</button>
+    </div>
+
+    <!-- SCREEN 20: DEDICATED CINEMATIC VIDEO SCREEN -->
+    <div class="screen" id="screen-video">
+      <h1 class="hero-title">Our Special Moments 🎬</h1>
+      <p class="hero-subtitle">A video straight from my heart ❤️</p>
+
+      <div class="video-player-wrap">
+        <video id="romanticVideo" controls playsinline preload="metadata">
+          <source src="video.mp4" type="video/mp4">
+          Your browser does not support video.
+        </video>
+      </div>
+
       <button class="btn-gold-rim" onclick="goToScreen('screen-quiz')">Kuch Dil Ki Baatein 💭❤️</button>
     </div>
 
-    <!-- SCREEN 14: 5 Hindi Romantic Questions -->
+    <!-- SCREEN 21: Hindi Quiz -->
     <div class="screen" id="screen-quiz">
       <h1 class="hero-title">Dil Se Dil Tak 💌✨</h1>
       <p class="hero-subtitle" id="quizCounterText">Sawaal 1 of 5 💕</p>
 
       <div class="quiz-card-box">
-        <h3 id="quizQuestionText" style="font-size: 15px; color: #ffe6f2; line-height: 1.5; min-height: 50px; margin-bottom: 14px;"></h3>
-        <div id="quizOptionsWrap" style="display: flex; flex-direction: column; gap: 10px; width: 100%;"></div>
-        <p id="quizFeedback" style="min-height: 24px; color: #ffd166; font-size: 13px; font-weight: 500; margin-top: 12px;"></p>
+        <h3 id="quizQuestionText" style="font-size: 14px; color: #ffe6f2; line-height: 1.45; min-height: 44px; margin-bottom: 12px;"></h3>
+        <div id="quizOptionsWrap" style="display: flex; flex-direction: column; gap: 8px; width: 100%;"></div>
+        <p id="quizFeedback" style="min-height: 20px; color: #ffd166; font-size: 12px; font-weight: 500; margin-top: 10px;"></p>
       </div>
 
       <button class="btn-gold-rim" id="btnQuizNext" style="display:none;" onclick="nextLoveQuestion()">Agla Sawaal 🌸</button>
       <button class="btn-gold-rim" id="btnGoToDiary" style="display:none;" onclick="goToScreen('screen-diary')">Open My Diary 📖</button>
     </div>
 
-    <!-- SCREEN 15: Golden Lined Vintage Journal (Harsh's Letter) -->
+    <!-- SCREEN 22: Golden Vintage Diary (Harsh's Long Letter) -->
     <div class="screen" id="screen-diary">
       <h1 class="hero-title">A Letter Just For You</h1>
       <p class="hero-subtitle">Written straight from my heart</p>
@@ -1115,8 +1232,8 @@
       <div class="diary-scene">
         <div class="diary-book" id="diaryCover" onclick="openSecretDiary()">
           <div class="diary-ribbon"></div>
-          <div style="font-size: 40px; margin-bottom: 6px;">📖</div>
-          <h3 style="font-family: 'Dancing Script', cursive; font-size: 26px; color: #ffd700;">Harsh's Journal</h3>
+          <div style="font-size: 36px; margin-bottom: 6px;">📖</div>
+          <h3 style="font-family: 'Dancing Script', cursive; font-size: 25px; color: #ffd700;">Harsh's Journal</h3>
           <p style="font-size: 11px; color: #e2b6cf; margin-top: 4px;">Tap to open pages</p>
         </div>
 
@@ -1129,27 +1246,37 @@
   </div>
 
   <script>
-    // Bulletproof Audio Unlock Engine
+    function triggerHaptic(len = 25) {
+      if (navigator.vibrate) {
+        try { navigator.vibrate(len); } catch (e) {}
+      }
+    }
+
     const bgSong = document.getElementById("bgSong");
     let audioStarted = false;
 
-    function unlockAndPlayAudio() {
+    function forceAudioUnlock() {
+      triggerHaptic(20);
       if (!audioStarted && bgSong) {
         bgSong.play().then(() => {
           audioStarted = true;
+          document.getElementById("musicBtn").innerText = "🎵";
         }).catch(() => {});
       }
     }
-    window.addEventListener("click", unlockAndPlayAudio, { passive: true });
-    window.addEventListener("touchstart", unlockAndPlayAudio, { passive: true });
-    window.addEventListener("keydown", unlockAndPlayAudio, { passive: true });
+
+    window.addEventListener("pointerdown", forceAudioUnlock, { once: false, passive: true });
+    window.addEventListener("load", forceAudioUnlock, { once: true });
 
     function toggleMusic() {
+      triggerHaptic(30);
       if (!bgSong) return;
       if (bgSong.paused) {
         bgSong.play();
+        document.getElementById("musicBtn").innerText = "🎵";
       } else {
         bgSong.pause();
+        document.getElementById("musicBtn").innerText = "🔇";
       }
     }
 
@@ -1163,54 +1290,14 @@
     setInterval(tickClock, 1000);
     tickClock();
 
-    // Dark Blue/Violet Cosmic Bokeh Canvas
-    const bgCvs = document.getElementById("ambientSkyCanvas");
-    const bgCtx = bgCvs.getContext("2d");
-    let bgStars = [];
-
-    function resizeSky() {
-      bgCvs.width = window.innerWidth;
-      bgCvs.height = window.innerHeight;
-      bgStars = [];
-      for (let i = 0; i < 45; i++) {
-        bgStars.push({
-          x: Math.random() * bgCvs.width,
-          y: Math.random() * bgCvs.height,
-          radius: Math.random() * 18 + 6,
-          speed: Math.random() * 0.3 + 0.1,
-          alpha: Math.random() * 0.35 + 0.1
-        });
-      }
-    }
-    window.addEventListener("resize", resizeSky);
-    resizeSky();
-
-    function renderSky() {
-      bgCtx.clearRect(0, 0, bgCvs.width, bgCvs.height);
-      bgStars.forEach(s => {
-        s.y -= s.speed;
-        if (s.y < -30) {
-          s.y = bgCvs.height + 30;
-          s.x = Math.random() * bgCvs.width;
-        }
-        bgCtx.fillStyle = "rgba(120, 110, 240, 0.4)";
-        bgCtx.globalAlpha = s.alpha;
-        bgCtx.filter = "blur(10px)";
-        bgCtx.beginPath();
-        bgCtx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-        bgCtx.fill();
-      });
-      bgCtx.filter = "none";
-      requestAnimationFrame(renderSky);
-    }
-    renderSky();
-
     function goToScreen(id) {
+      triggerHaptic(30);
       document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
       const t = document.getElementById(id);
       if (t) {
         t.classList.add("active");
         if (id === "screen-cake") animateMilestones("2008-09-27");
+        if (id === "screen-memorygame") initMemoryGame();
         if (id === "screen-puzzle") initPlayablePuzzle();
         if (id === "screen-quiz") {
           currentQIndex = 0;
@@ -1219,30 +1306,28 @@
       }
     }
 
-    // Glowing Magic Orb Unlock
     function openMagicOrb() {
-      unlockAndPlayAudio();
-      const orb = document.querySelector(".magic-orb-container");
-      orb.classList.add("opened");
-      confetti({ particleCount: 95, spread: 90, origin: { y: 0.55 } });
-
-      setTimeout(() => {
-        goToScreen("screen-lock");
-      }, 750);
+      triggerHaptic(40);
+      forceAudioUnlock();
+      confetti({ particleCount: 75, spread: 80, origin: { y: 0.55 } });
+      setTimeout(() => { goToScreen("screen-lock"); }, 350);
     }
 
     const PIN = "2709";
     let entered = "";
 
     function pressKey(n) {
+      triggerHaptic(25);
+      forceAudioUnlock();
       if (entered.length < 4) {
         entered += n;
         renderDots();
-        if (entered.length === 4) setTimeout(checkPin, 200);
+        if (entered.length === 4) setTimeout(checkPin, 120);
       }
     }
-    function clearKey() { entered = ""; renderDots(); }
-    function backspaceKey() { entered = entered.slice(0, -1); renderDots(); }
+    function clearKey() { triggerHaptic(30); entered = ""; renderDots(); }
+    function backspaceKey() { triggerHaptic(25); entered = entered.slice(0, -1); renderDots(); }
+    
     function renderDots() {
       for (let i = 1; i <= 4; i++) {
         const dot = document.getElementById(`d${i}`);
@@ -1250,20 +1335,25 @@
         else dot.classList.remove("filled");
       }
     }
+
     function checkPin() {
       if (entered === PIN) {
+        triggerHaptic([40, 40, 60]);
         document.getElementById("lockIcon").innerText = "🔓";
-        confetti({ particleCount: 50, spread: 70 });
+        confetti({ particleCount: 50, spread: 60 });
         setTimeout(() => {
           document.getElementById("curtainOverlay").style.display = "flex";
-        }, 300);
+        }, 200);
       } else {
+        triggerHaptic([70, 70]);
         alert("Incorrect PIN! Hint: 2709");
         clearKey();
       }
     }
 
     function pullCurtains() {
+      triggerHaptic(40);
+      forceAudioUnlock();
       const c = document.getElementById("curtainOverlay");
       c.classList.add("opened");
       setTimeout(() => {
@@ -1271,8 +1361,8 @@
         goToScreen("screen-loader-dots");
         setTimeout(() => {
           goToScreen("screen-bear-reveal");
-        }, 2200);
-      }, 1000);
+        }, 1200);
+      }, 700);
     }
 
     function animateMilestones(bdate) {
@@ -1283,61 +1373,111 @@
       const targetHours = Math.floor(diff / (1000 * 60 * 60));
       const targetMins = Math.floor(diff / (1000 * 60));
 
-      function rollCounter(elId, target, duration) {
-        const el = document.getElementById(elId);
-        const start = Date.now();
-        const interval = setInterval(() => {
-          const progress = Math.min((Date.now() - start) / duration, 1);
-          const current = Math.floor(progress * target);
-          el.innerText = current.toLocaleString();
-          if (progress === 1) clearInterval(interval);
-        }, 30);
-      }
-      rollCounter("cYears", targetYears, 1200);
-      rollCounter("cDays", targetDays, 1200);
-      rollCounter("cHours", targetHours, 1400);
-      rollCounter("cMins", targetMins, 1600);
+      document.getElementById("cYears").innerText = targetYears;
+      document.getElementById("cDays").innerText = targetDays.toLocaleString();
+      document.getElementById("cHours").innerText = targetHours.toLocaleString();
+      document.getElementById("cMins").innerText = targetMins.toLocaleString();
     }
 
     function blowCandles() {
+      triggerHaptic(50);
       document.getElementById("flame1").style.display = "none";
       document.getElementById("flame2").style.display = "none";
       document.getElementById("cakeInstruction").innerText = "Candles blown! Wishes sent to the universe ✨";
-      confetti({ particleCount: 80, spread: 90, origin: { y: 0.7 } });
+      confetti({ particleCount: 65, spread: 80, origin: { y: 0.7 } });
       document.getElementById("btnCakeNext").style.display = "inline-flex";
     }
 
-    // 3 Photos with 3 Different Dynamic Entry Animations
-    const photos = [
-      { url: "IMG_20260905_205301_817.jpg", caption: "Our first sweet adventure together 🌸", anim: "slide-from-left" },
-      { url: "IMG_20260905_223215_019.jpg", caption: "Making every moment magical ✨", anim: "slide-from-right" },
-      { url: "IMG_20260905_225000_569.jpg", caption: "To endless beautiful memories ahead 🥂", anim: "slide-from-bottom" }
-    ];
-    let photoIndex = 0;
+    // Memory Game
+    const memSymbols = ["💖", "🌸", "💍", "✨", "💖", "🌸", "💍", "✨"];
+    let flippedCards = [];
+    let matchedPairs = 0;
 
-    function nextPhoto() {
-      photoIndex++;
-      if (photoIndex < photos.length) {
-        const frame = document.getElementById("photoFrameBox");
-        const img = document.getElementById("polaroidImage");
-        
-        frame.classList.remove("slide-from-left", "slide-from-right", "slide-from-bottom");
-        void frame.offsetWidth;
-        
-        frame.classList.add(photos[photoIndex].anim);
-        img.src = photos[photoIndex].url;
-        document.getElementById("polaroidCaption").innerText = photos[photoIndex].caption;
-      } else {
-        goToScreen("screen-reasons");
+    function initMemoryGame() {
+      const grid = document.getElementById("memoryGrid");
+      grid.innerHTML = "";
+      flippedCards = [];
+      matchedPairs = 0;
+      const shuffled = [...memSymbols].sort(() => Math.random() - 0.5);
+
+      shuffled.forEach((sym, idx) => {
+        const card = document.createElement("div");
+        card.className = "mem-card";
+        card.dataset.sym = sym;
+        card.dataset.idx = idx;
+        card.innerText = "❓";
+        card.onclick = () => flipMemoryCard(card);
+        grid.appendChild(card);
+      });
+    }
+
+    function flipMemoryCard(card) {
+      if (card.classList.contains("flipped") || card.classList.contains("matched") || flippedCards.length === 2) return;
+      triggerHaptic(25);
+      card.classList.add("flipped");
+      card.innerText = card.dataset.sym;
+      flippedCards.push(card);
+
+      if (flippedCards.length === 2) {
+        const [c1, c2] = flippedCards;
+        if (c1.dataset.sym === c2.dataset.sym) {
+          c1.classList.add("matched");
+          c2.classList.add("matched");
+          matchedPairs++;
+          flippedCards = [];
+          triggerHaptic([30, 40]);
+          confetti({ particleCount: 20, spread: 45 });
+          if (matchedPairs === 4) {
+            document.getElementById("btnMemNext").style.display = "inline-flex";
+          }
+        } else {
+          setTimeout(() => {
+            c1.classList.remove("flipped");
+            c2.classList.remove("flipped");
+            c1.innerText = "❓";
+            c2.innerText = "❓";
+            flippedCards = [];
+          }, 500);
+        }
+      }
+    }
+
+    // Piano Audio
+    let audioCtx = null;
+    let pianoTapCount = 0;
+
+    function playPianoNote(freq, el) {
+      triggerHaptic(30);
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.8);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.8);
+
+      el.classList.add("playing");
+      setTimeout(() => el.classList.remove("playing"), 150);
+
+      pianoTapCount++;
+      if (pianoTapCount >= 5) {
+        confetti({ particleCount: 35, spread: 60 });
+        document.getElementById("pianoCountText").innerText = "Beautiful melody unlocked! 🎶✨";
+        document.getElementById("btnPianoNext").style.display = "inline-flex";
       }
     }
 
     let flipCt = 0;
     function flipCard(c) {
+      triggerHaptic(30);
       if (!c.classList.contains("flipped")) {
         c.classList.add("flipped");
         flipCt++;
-        confetti({ particleCount: 20, spread: 45 });
+        confetti({ particleCount: 15, spread: 40 });
         if (flipCt >= 3) document.getElementById("btnReasonsNext").style.display = "inline-flex";
       }
     }
@@ -1346,18 +1486,19 @@
     let syncTimer = null, syncSec = 0;
 
     function onHoldStart() {
+      triggerHaptic(40);
       syncPad.classList.add("holding");
       syncSec = 0;
-      if (navigator.vibrate) navigator.vibrate([60, 60]);
       syncTimer = setInterval(() => {
         syncSec += 0.5;
-        if (navigator.vibrate) navigator.vibrate(40);
+        triggerHaptic(25);
         document.getElementById("touchProgress").innerText = `Syncing: ${Math.round((syncSec/3)*100)}%`;
         if (syncSec >= 3) {
           clearInterval(syncTimer);
+          triggerHaptic([60, 60, 100]);
           document.getElementById("touchSyncStatus").innerText = "Heartbeats synced forever ❤️";
           document.getElementById("touchProgress").innerText = "Synced! ✨";
-          confetti({ particleCount: 65, spread: 75 });
+          confetti({ particleCount: 50, spread: 70 });
           document.getElementById("btnTouchNext").style.display = "inline-flex";
         }
       }, 500);
@@ -1374,22 +1515,30 @@
     syncPad.addEventListener("touchstart", (e) => { e.preventDefault(); onHoldStart(); });
     syncPad.addEventListener("touchend", onHoldEnd);
 
-    const wishes = [
+    // Balloons
+    const balloonWishes = [
       "You make my entire world brighter ☀️",
       "You are my absolute favorite person 💕",
       "May all your dreams turn into reality ✨",
       "I am the luckiest because of you 🌸",
       "Endless happiness and peace to you 🥂",
-      "You deserve the entire universe 🌌"
+      "You deserve the entire universe 🌌",
+      "Your smile is my favourite sight 😊❤️",
+      "May this year bring you pure magic 🪄",
+      "Always stay close to my heart 💖"
     ];
-    let pCount = 0;
-    function popBalloon(idx, el) {
-      if (el.innerText !== "💥") {
-        el.innerText = "💥";
-        document.getElementById("balloonWishText").innerText = wishes[idx];
-        confetti({ particleCount: 30, spread: 50 });
-        pCount++;
-        if (pCount >= 4) document.getElementById("btnBalloonsNext").style.display = "inline-flex";
+    let poppedCount = 0;
+
+    function popRealisticBalloon(idx, el) {
+      if (!el.classList.contains("popped")) {
+        triggerHaptic(40);
+        el.classList.add("popped");
+        document.getElementById("balloonWishText").innerText = balloonWishes[idx];
+        confetti({ particleCount: 25, spread: 45 });
+        poppedCount++;
+        if (poppedCount >= 6) {
+          document.getElementById("btnBalloonsNext").style.display = "inline-flex";
+        }
       }
     }
 
@@ -1407,8 +1556,8 @@
         if (val === 8) {
           tile.classList.add("blank");
         } else {
-          const x = (val % 3) * -80;
-          const y = Math.floor(val / 3) * -80;
+          const x = (val % 3) * -76;
+          const y = Math.floor(val / 3) * -76;
           tile.style.backgroundPosition = `${x}px ${y}px`;
         }
         tile.onclick = () => tryMoveTile(idx);
@@ -1417,6 +1566,7 @@
     }
 
     function tryMoveTile(index) {
+      triggerHaptic(20);
       const blankIndex = puzzleState.indexOf(8);
       const validMoves = [blankIndex - 1, blankIndex + 1, blankIndex - 3, blankIndex + 3];
       const isHorizontalWrap = (Math.floor(index / 3) !== Math.floor(blankIndex / 3)) && (Math.abs(index - blankIndex) === 1);
@@ -1429,33 +1579,36 @@
     }
 
     function shufflePlayablePuzzle() {
+      triggerHaptic(35);
       puzzleState = [1, 0, 2, 4, 8, 3, 6, 7, 5];
       renderPuzzleTiles();
     }
 
     function solvePlayablePuzzle() {
+      triggerHaptic(45);
       puzzleState = [0, 1, 2, 3, 4, 5, 6, 7, 8];
       renderPuzzleTiles();
       const lastTile = puzzleBoard.children[8];
       lastTile.classList.remove("blank");
-      lastTile.style.backgroundPosition = "-160px -160px";
-      confetti({ particleCount: 75, spread: 80 });
+      lastTile.style.backgroundPosition = "-152px -152px";
+      confetti({ particleCount: 60, spread: 70 });
       document.getElementById("btnPuzzleNext").style.display = "inline-flex";
     }
 
-    // Scratch Card
+    // Scratch
     const scCvs = document.getElementById("scratchCanvas");
     const sCtx = scCvs.getContext("2d");
-    sCtx.fillStyle = "#a88d9b";
+    sCtx.fillStyle = "#8a7380";
     sCtx.fillRect(0, 0, scCvs.width, scCvs.height);
     sCtx.fillStyle = "#ffffff";
-    sCtx.font = "bold 15px Poppins";
+    sCtx.font = "bold 14px Poppins";
     sCtx.textAlign = "center";
-    sCtx.fillText("Scratch with your finger 🪙", 145, 85);
+    sCtx.fillText("Scratch with your finger 🪙", 140, 80);
 
     let isScratch = false;
     function doScratch(e) {
       if (!isScratch) return;
+      triggerHaptic(10);
       const rect = scCvs.getBoundingClientRect();
       const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
       const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
@@ -1473,12 +1626,13 @@
     scCvs.addEventListener("touchmove", doScratch);
 
     function claimCoupon(b) {
+      triggerHaptic(30);
       b.innerText = "Claimed! 💕";
       b.classList.add("claimed");
-      confetti({ particleCount: 30, spread: 45 });
+      confetti({ particleCount: 25, spread: 40 });
     }
 
-    // 5 Hindi Romantic Questions Logic
+    // Hindi Quiz
     const loveQuestions = [
       {
         q: "Kabhi socha hai meri sabse favourite aadat kya hai tumhari? 💭❤️",
@@ -1550,10 +1704,11 @@
     }
 
     function selectLoveOption(btn, feedback) {
+      triggerHaptic(30);
       document.querySelectorAll(".quiz-opt-btn").forEach(el => el.classList.remove("selected"));
       btn.classList.add("selected");
       document.getElementById("quizFeedback").innerText = feedback;
-      confetti({ particleCount: 25, spread: 50 });
+      confetti({ particleCount: 20, spread: 45 });
 
       if (currentQIndex < loveQuestions.length - 1) {
         document.getElementById("btnQuizNext").style.display = "inline-flex";
@@ -1563,27 +1718,33 @@
     }
 
     function nextLoveQuestion() {
+      triggerHaptic(25);
       currentQIndex++;
       renderLoveQuestion();
     }
 
-    // Natural Letter-By-Letter Cursive Handwriting in Golden Vintage Journal
-    const diaryRawText = `My dearest,
+    // Harsh's Custom Long Love Letter
+    const diaryRawText = `Happy Birthday, Meri Sabse Khaas Insaan ❤️
 
-On this very special day, I want you to know how deeply loved you are.
+Pata hai, aaj ka din mere liye kitna khaas hai? Kyunki aaj us insaan ka janamdin hai jise sochte hi mere chehre par muskurahat aa jaati hai. 
 
-Every single moment spent with you feels like a beautiful dream I never want to wake from.
+Tum meri zindagi ka wo hissa ho jise main lafzon mein poori tarah bayan nahi kar sakti. Tumhari ek chhoti si baat mera din bana deti hai, aur tumhari ek muskurahat mere dil ko sukoon de deti hai. Shayad tumhe andaza bhi nahi hoga ki tum meri zindagi mein kitni ahmiyat rakhte ho.
 
-Your smile is my favourite thing in the entire world, and your happiness means everything to me.
+Aaj tumhare birthday par main bas itna kehna chahti hoon ki tum meri har dua mein shamil ho. Main dil se chahti hoon ki tumhari zindagi mein kabhi kisi cheez ki kami na ho. Tumhare har sapne poore hon, har manzil tumhe mile aur tum hamesha khush raho. Tumhare saath baat karna, tumhari fikr karna aur tumhe khush dekhna mujhe sach mein bahut pasand hai.
 
-Thank you for being you, and for choosing me every single day.
+Kabhi kabhi lagta hai ki meri aadat ban gaye ho tum. Din kitna bhi busy ho, ek baar tumhara khayal zaroor aa hi jaata hai. Aaj ke din main Allah se bas yehi dua karti hoon ki tumhari zindagi hamesha khushiyon se bhari rahe.
 
-Happy 18th Birthday, my love! 🎂✨
+Tumhare chehre ki muskurahat kabhi kam na ho aur tum jis cheez ko dil se chaho wo tumhe zaroor mile. Aur haan, thank you... meri zindagi mein aane ke liye, meri baaton ko sunne ke liye, aur bina kuch kahe bhi mujhe samajh lene ke liye. Tum sach mein mere liye bahut special ho.
 
-Forever & always,
+Janamdin mubarak ho meri jaan. 🎂✨
+Aaj ka din tumhare naam, aur meri har dua bhi tumhare naam. Khush raho, muskurate raho, aur hamesha mere dil ke sabse kareeb raho...
+
+Love you more than words can ever explain. 💕
+
 — Yours, Harsh ❤️`;
 
     function openSecretDiary() {
+      triggerHaptic(40);
       document.getElementById("diaryCover").style.display = "none";
       const pages = document.getElementById("diaryPages");
       pages.style.display = "block";
@@ -1595,10 +1756,10 @@ Forever & always,
           pages.innerText += diaryRawText.charAt(charPos);
           pages.scrollTop = pages.scrollHeight;
           charPos++;
-          setTimeout(typeCharByChar, 34);
+          setTimeout(typeCharByChar, 18);
         } else {
           document.getElementById("btnReplay").style.display = "inline-flex";
-          confetti({ particleCount: 100, spread: 90, origin: { y: 0.5 } });
+          confetti({ particleCount: 85, spread: 85, origin: { y: 0.5 } });
         }
       }
       typeCharByChar();
