@@ -269,7 +269,6 @@
       40% { transform: scale(1.2); opacity: 1; }
     }
 
-    /* GIF Display Box */
     .gif-display-box {
       width: 120px;
       height: 120px;
@@ -281,7 +280,7 @@
     }
     .gif-display-box img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* Cake & Counter */
+    /* Cake & Rolling Counter */
     .counter-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -295,7 +294,12 @@
       border-radius: 14px;
       padding: 8px 4px;
     }
-    .counter-box h3 { font-size: 20px; color: #ff8cb6; font-weight: 700; }
+    .counter-box h3 {
+      font-size: 20px;
+      color: #ff8cb6;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
     .counter-box span { font-size: 10px; color: #d6b4cc; }
 
     .cake-showcase {
@@ -482,7 +486,7 @@
       background: linear-gradient(180deg, #ffd0e8, #ff85a2);
     }
 
-    /* Grand Dedicated Video Screen */
+    /* Dedicated Video Screen with Auto-Play Wrapper */
     .video-player-wrap {
       width: 285px;
       height: 360px;
@@ -492,11 +496,13 @@
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
       margin: 8px auto;
       background: #000;
+      cursor: pointer;
     }
     .video-player-wrap video {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
     /* Reasons Flip */
@@ -880,13 +886,13 @@
       <button class="btn-gold-rim" onclick="goToScreen('screen-cake')">Continue ✨</button>
     </div>
 
-    <!-- SCREEN 5: Cake & Counter -->
+    <!-- SCREEN 5: Cake & Rolling Counter (2009-09-27) -->
     <div class="screen" id="screen-cake">
       <h1 class="hero-title">Happy Birthday Cutiepie 🎂</h1>
-      <p class="hero-subtitle">The World Has Been Sweeter Since 2008 ❤️</p>
+      <p class="hero-subtitle">The World Has Been Sweeter Since 2009 ❤️</p>
 
       <div class="counter-grid">
-        <div class="counter-box"><h3 id="cYears">18</h3><span>YEARS</span></div>
+        <div class="counter-box"><h3 id="cYears">0</h3><span>YEARS</span></div>
         <div class="counter-box"><h3 id="cDays">0</h3><span>DAYS</span></div>
         <div class="counter-box"><h3 id="cHours">0</h3><span>HOURS</span></div>
         <div class="counter-box"><h3 id="cMins">0</h3><span>MINUTES</span></div>
@@ -896,14 +902,14 @@
         <div class="cake-top"></div>
         <div class="cake-base"></div>
         <div class="candle candle-1">1<div class="flame" id="flame1"></div></div>
-        <div class="candle candle-2">8<div class="flame" id="flame2"></div></div>
+        <div class="candle candle-2">7<div class="flame" id="flame2"></div></div>
       </div>
 
       <p id="cakeInstruction" style="font-size: 12px; color: #ffd166; margin-top: 6px;">Tap the cake to blow the candles 🌬️</p>
       <button class="btn-gold-rim" id="btnCakeNext" style="display:none;" onclick="goToScreen('screen-photo-1')">Open Chapter 1 🌸</button>
     </div>
 
-    <!-- SCREEN 6: PHOTO 1 (Aesthetic Decorated Frame) -->
+    <!-- SCREEN 6: PHOTO 1 -->
     <div class="screen" id="screen-photo-1">
       <h1 class="hero-title">Chapter 1: The Beginning 🌸</h1>
       <p class="hero-subtitle">Where all the magic started</p>
@@ -935,7 +941,7 @@
       <button class="btn-gold-rim" id="btnMemNext" style="display:none;" onclick="goToScreen('screen-photo-2')">Open Chapter 2 📸</button>
     </div>
 
-    <!-- SCREEN 8: PHOTO 2 (Aesthetic Decorated Frame) -->
+    <!-- SCREEN 8: PHOTO 2 -->
     <div class="screen" id="screen-photo-2">
       <h1 class="hero-title">Chapter 2: Purest Smile ✨</h1>
       <p class="hero-subtitle">Your smile is my favourite place</p>
@@ -974,7 +980,7 @@
       <button class="btn-gold-rim" id="btnPianoNext" style="display:none;" onclick="goToScreen('screen-photo-3')">Open Chapter 3 🥂</button>
     </div>
 
-    <!-- SCREEN 10: PHOTO 3 (Aesthetic Decorated Frame) -->
+    <!-- SCREEN 10: PHOTO 3 -->
     <div class="screen" id="screen-photo-3">
       <h1 class="hero-title">Chapter 3: Endless Magic 🥂</h1>
       <p class="hero-subtitle">To infinite memories together</p>
@@ -1010,7 +1016,7 @@
       <button class="btn-gold-rim" id="btnPuzzleNext" style="display:none; margin-top: 8px;" onclick="goToScreen('screen-photo-4')">Open Chapter 4 💖</button>
     </div>
 
-    <!-- SCREEN 12: PHOTO 4 (Aesthetic Decorated Frame) -->
+    <!-- SCREEN 12: PHOTO 4 -->
     <div class="screen" id="screen-photo-4">
       <h1 class="hero-title">Chapter 4: My Safest Haven 🏡</h1>
       <p class="hero-subtitle">With you, everything feels right</p>
@@ -1032,7 +1038,7 @@
       <button class="btn-gold-rim" onclick="goToScreen('screen-balloons')">Pop The Balloons 🎈</button>
     </div>
 
-    <!-- SCREEN 13: 3D Realistic Balloons (4-3-2 Layout) -->
+    <!-- SCREEN 13: 3D Realistic Balloons -->
     <div class="screen" id="screen-balloons">
       <h1 class="hero-title">Pop The Balloons 🎈</h1>
       <p class="hero-subtitle">Pop all 9 balloons to reveal wishes!</p>
@@ -1059,7 +1065,7 @@
       <button class="btn-gold-rim" id="btnBalloonsNext" style="display:none;" onclick="goToScreen('screen-photo-5')">Open Chapter 5 💫</button>
     </div>
 
-    <!-- SCREEN 14: PHOTO 5 (Aesthetic Decorated Frame) -->
+    <!-- SCREEN 14: PHOTO 5 -->
     <div class="screen" id="screen-photo-5">
       <h1 class="hero-title">Chapter 5: Written in Stars 💫</h1>
       <p class="hero-subtitle">My permanent comfort place</p>
@@ -1097,7 +1103,7 @@
       <button class="btn-gold-rim" id="btnScratchNext" style="display:none;" onclick="goToScreen('screen-photo-6')">Open Chapter 6 👑</button>
     </div>
 
-    <!-- SCREEN 16: PHOTO 6 (Aesthetic Decorated Frame) -->
+    <!-- SCREEN 16: PHOTO 6 -->
     <div class="screen" id="screen-photo-6">
       <h1 class="hero-title">Chapter 6: Forever Yours 👑</h1>
       <p class="hero-subtitle">Grateful for you every second</p>
@@ -1194,13 +1200,13 @@
       <button class="btn-gold-rim" onclick="goToScreen('screen-video')">Watch Our Video 🎬</button>
     </div>
 
-    <!-- SCREEN 20: DEDICATED CINEMATIC VIDEO SCREEN -->
+    <!-- SCREEN 20: DEDICATED AUTO-PLAY VIDEO SCREEN -->
     <div class="screen" id="screen-video">
       <h1 class="hero-title">Our Special Moments 🎬</h1>
       <p class="hero-subtitle">A video straight from my heart ❤️</p>
 
-      <div class="video-player-wrap">
-        <video id="romanticVideo" controls playsinline preload="metadata">
+      <div class="video-player-wrap" onclick="ensureVideoPlaying()">
+        <video id="romanticVideo" playsinline preload="auto" loop>
           <source src="video.mp4" type="video/mp4">
           Your browser does not support video.
         </video>
@@ -1296,12 +1302,114 @@
       const t = document.getElementById(id);
       if (t) {
         t.classList.add("active");
-        if (id === "screen-cake") animateMilestones("2008-09-27");
+        if (id === "screen-cake") startRollingCountdown("2009-09-27");
         if (id === "screen-memorygame") initMemoryGame();
         if (id === "screen-puzzle") initPlayablePuzzle();
+        if (id === "screen-video") autoPlayRomanticVideo();
+        if (id !== "screen-video") pauseRomanticVideo();
         if (id === "screen-quiz") {
           currentQIndex = 0;
           renderLoveQuestion();
+        }
+      }
+    }
+
+    /* REALTIME ROLLING COUNTDOWN (0 se shuru hokar rukne wala) */
+    let countdownInterval = null;
+    function startRollingCountdown(bdate) {
+      if (countdownInterval) clearInterval(countdownInterval);
+
+      const targetDate = new Date(bdate + "T00:00:00");
+      const now = new Date();
+      const diff = Math.max(0, now - targetDate);
+
+      const targetYears = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+      const targetDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const targetHours = Math.floor(diff / (1000 * 60 * 60));
+      const targetMins = Math.floor(diff / (1000 * 60));
+
+      const elY = document.getElementById("cYears");
+      const elD = document.getElementById("cDays");
+      const elH = document.getElementById("cHours");
+      const elM = document.getElementById("cMins");
+
+      // Reset to 0
+      elY.innerText = "0";
+      elD.innerText = "0";
+      elH.innerText = "0";
+      elM.innerText = "0";
+
+      const startTime = performance.now();
+      const duration = 1600; // 1.6s smooth rolling
+
+      function rollFrame(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Easing out cubic for ultra-smooth stop
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+
+        elY.innerText = Math.floor(easeOut * targetYears);
+        elD.innerText = Math.floor(easeOut * targetDays).toLocaleString();
+        elH.innerText = Math.floor(easeOut * targetHours).toLocaleString();
+        elM.innerText = Math.floor(easeOut * targetMins).toLocaleString();
+
+        if (progress < 1) {
+          requestAnimationFrame(rollFrame);
+        } else {
+          // Final exact values pe freeze
+          elY.innerText = targetYears;
+          elD.innerText = targetDays.toLocaleString();
+          elH.innerText = targetHours.toLocaleString();
+          elM.innerText = targetMins.toLocaleString();
+        }
+      }
+
+      requestAnimationFrame(rollFrame);
+    }
+
+    /* SMART AUTO-PLAY VIDEO LOGIC */
+    const romanticVideo = document.getElementById("romanticVideo");
+
+    function autoPlayRomanticVideo() {
+      if (!romanticVideo) return;
+      // Temporarily pause background music so video audio is clear
+      if (bgSong && !bgSong.paused) {
+        bgSong.pause();
+        document.getElementById("musicBtn").innerText = "🔇";
+      }
+
+      romanticVideo.currentTime = 0;
+      const playPromise = romanticVideo.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Fallback if browser requires user gesture/muted
+          romanticVideo.muted = true;
+          romanticVideo.play().then(() => {
+            romanticVideo.muted = false;
+          }).catch(() => {});
+        });
+      }
+    }
+
+    function ensureVideoPlaying() {
+      triggerHaptic(20);
+      if (romanticVideo) {
+        if (romanticVideo.paused) {
+          romanticVideo.play();
+        } else {
+          romanticVideo.pause();
+        }
+      }
+    }
+
+    function pauseRomanticVideo() {
+      if (romanticVideo && !romanticVideo.paused) {
+        romanticVideo.pause();
+        // Resume bg song if needed
+        if (bgSong && bgSong.paused) {
+          bgSong.play().catch(() => {});
+          document.getElementById("musicBtn").innerText = "🎵";
         }
       }
     }
@@ -1363,20 +1471,6 @@
           goToScreen("screen-bear-reveal");
         }, 1200);
       }, 700);
-    }
-
-    function animateMilestones(bdate) {
-      const b = new Date(bdate);
-      const diff = new Date() - b;
-      const targetYears = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
-      const targetDays = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const targetHours = Math.floor(diff / (1000 * 60 * 60));
-      const targetMins = Math.floor(diff / (1000 * 60));
-
-      document.getElementById("cYears").innerText = targetYears;
-      document.getElementById("cDays").innerText = targetDays.toLocaleString();
-      document.getElementById("cHours").innerText = targetHours.toLocaleString();
-      document.getElementById("cMins").innerText = targetMins.toLocaleString();
     }
 
     function blowCandles() {
