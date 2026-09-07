@@ -428,32 +428,60 @@
       text-shadow: 0 0 10px rgba(255, 105, 180, 0.7);
     }
 
-    /* Love Memory Matching Game */
-    .memory-game-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 64px);
-      gap: 8px;
-      margin: 10px auto;
-      justify-content: center;
-    }
-    .mem-card {
-      width: 64px;
-      height: 64px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 182, 193, 0.4);
+    /* NEW SPECIAL GAME: MAGIC ROMANTIC LOVE WHEEL */
+    .wheel-stage {
+      position: relative;
+      width: 260px;
+      height: 260px;
+      margin: 14px auto 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
+    }
+    .wheel-pointer {
+      position: absolute;
+      top: -12px;
+      font-size: 28px;
+      z-index: 10;
+      filter: drop-shadow(0 4px 8px rgba(255, 215, 0, 0.8));
+    }
+    .wheel-circle {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      border: 4px solid #ffd700;
+      box-shadow: 0 0 25px rgba(255, 105, 180, 0.6), inset 0 0 20px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+      transition: transform 3.5s cubic-bezier(0.17, 0.97, 0.12, 1);
+      background: conic-gradient(
+        #ff3377 0deg 60deg,
+        #8a2be2 60deg 120deg,
+        #ff69b4 120deg 180deg,
+        #ff8c00 180deg 240deg,
+        #e91e63 240deg 300deg,
+        #9c27b0 300deg 360deg
+      );
+    }
+    .wheel-center-btn {
+      position: absolute;
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ffd700, #ff8c00);
+      border: 2px solid #fff;
+      color: #52002b;
+      font-weight: 800;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
       cursor: pointer;
-      transition: transform 0.15s ease;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+      transition: transform 0.1s ease;
     }
-    .mem-card.flipped, .mem-card.matched {
-      background: rgba(255, 51, 119, 0.35);
-      border-color: #ff3377;
-      transform: scale(0.96);
-    }
+    .wheel-center-btn:active { transform: scale(0.92); }
 
     /* Piano Game */
     .piano-board {
@@ -484,25 +512,6 @@
     .piano-key:active, .piano-key.playing {
       transform: translateY(4px);
       background: linear-gradient(180deg, #ffd0e8, #ff85a2);
-    }
-
-    /* Dedicated Video Screen with Auto-Play Wrapper */
-    .video-player-wrap {
-      width: 285px;
-      height: 360px;
-      border-radius: 22px;
-      overflow: hidden;
-      border: 2px solid rgba(255, 200, 230, 0.65);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
-      margin: 8px auto;
-      background: #000;
-      cursor: pointer;
-    }
-    .video-player-wrap video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
     }
 
     /* Reasons Flip */
@@ -729,10 +738,10 @@
       border-color: #ff3377;
     }
 
-    /* Golden Ruled Diary */
+    /* Golden Ruled Diary (Vintage Warm Look) */
     .diary-scene {
       width: 315px;
-      height: 400px;
+      height: 420px;
       margin: 6px 0;
       position: relative;
     }
@@ -769,12 +778,13 @@
       padding: 18px 12px 18px 44px;
       text-align: left;
       font-family: 'Dancing Script', cursive;
-      font-size: 16px;
+      font-size: 16.5px;
       line-height: 26px;
       color: #3b220c;
       overflow-y: auto;
       white-space: pre-wrap;
       box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+      cursor: pointer;
     }
 
     .music-floating-btn {
@@ -928,17 +938,22 @@
         </div>
       </div>
 
-      <button class="btn-gold-rim" onclick="goToScreen('screen-memorygame')">Play Love Match 🎴</button>
+      <button class="btn-gold-rim" onclick="goToScreen('screen-wheelgame')">Spin Love Fortune 🎡</button>
     </div>
 
-    <!-- SCREEN 7: Love Memory Matching Game -->
-    <div class="screen" id="screen-memorygame">
-      <h1 class="hero-title">Match Our Love Pairs 🎴</h1>
-      <p class="hero-subtitle">Match all 4 pairs to proceed! 💕</p>
+    <!-- SCREEN 7: NEW SPECIAL GAME - ROMANTIC LOVE FORTUNE WHEEL -->
+    <div class="screen" id="screen-wheelgame">
+      <h1 class="hero-title">Dil Ka Lucky Spin 🎡💖</h1>
+      <p class="hero-subtitle">Tap SPIN to reveal your birthday fortune ✨</p>
 
-      <div class="memory-game-grid" id="memoryGrid"></div>
+      <div class="wheel-stage">
+        <div class="wheel-pointer">🔻</div>
+        <div class="wheel-circle" id="fortuneWheel"></div>
+        <div class="wheel-center-btn" onclick="spinLoveWheel()">SPIN 💕</div>
+      </div>
 
-      <button class="btn-gold-rim" id="btnMemNext" style="display:none;" onclick="goToScreen('screen-photo-2')">Open Chapter 2 📸</button>
+      <p id="wheelFortuneText" style="min-height: 38px; color: #ffd166; font-size: 13.5px; font-weight: 600; margin-top: 6px;">Spin the wheel to unlock your gift! 🎁</p>
+      <button class="btn-gold-rim" id="btnWheelNext" style="display:none;" onclick="goToScreen('screen-photo-2')">Open Chapter 2 📸</button>
     </div>
 
     <!-- SCREEN 8: PHOTO 2 -->
@@ -1197,25 +1212,11 @@
         </div>
       </div>
 
-      <button class="btn-gold-rim" onclick="goToScreen('screen-video')">Watch Our Video 🎬</button>
-    </div>
-
-    <!-- SCREEN 20: DEDICATED AUTO-PLAY VIDEO SCREEN -->
-    <div class="screen" id="screen-video">
-      <h1 class="hero-title">Our Special Moments 🎬</h1>
-      <p class="hero-subtitle">A video straight from my heart ❤️</p>
-
-      <div class="video-player-wrap" onclick="ensureVideoPlaying()">
-        <video id="romanticVideo" playsinline preload="auto" loop>
-          <source src="video.mp4" type="video/mp4">
-          Your browser does not support video.
-        </video>
-      </div>
-
+      <!-- Straight to Hindi Questions -->
       <button class="btn-gold-rim" onclick="goToScreen('screen-quiz')">Kuch Dil Ki Baatein 💭❤️</button>
     </div>
 
-    <!-- SCREEN 21: Hindi Quiz -->
+    <!-- SCREEN 20: Hindi Quiz -->
     <div class="screen" id="screen-quiz">
       <h1 class="hero-title">Dil Se Dil Tak 💌✨</h1>
       <p class="hero-subtitle" id="quizCounterText">Sawaal 1 of 5 💕</p>
@@ -1230,7 +1231,7 @@
       <button class="btn-gold-rim" id="btnGoToDiary" style="display:none;" onclick="goToScreen('screen-diary')">Open My Diary 📖</button>
     </div>
 
-    <!-- SCREEN 22: Golden Vintage Diary (Harsh's Long Letter) -->
+    <!-- SCREEN 21: Golden Vintage Ruled Diary (Harsh's Letter with Readable Flow) -->
     <div class="screen" id="screen-diary">
       <h1 class="hero-title">A Letter Just For You</h1>
       <p class="hero-subtitle">Written straight from my heart</p>
@@ -1243,7 +1244,7 @@
           <p style="font-size: 11px; color: #e2b6cf; margin-top: 4px;">Tap to open pages</p>
         </div>
 
-        <div class="diary-open-view" id="diaryPages"></div>
+        <div class="diary-open-view" id="diaryPages" onclick="fastForwardDiary()"></div>
       </div>
 
       <button class="btn-gold-rim" id="btnReplay" style="display:none;" onclick="location.reload()">Replay 🔄</button>
@@ -1303,10 +1304,7 @@
       if (t) {
         t.classList.add("active");
         if (id === "screen-cake") startRollingCountdown("2009-09-27");
-        if (id === "screen-memorygame") initMemoryGame();
         if (id === "screen-puzzle") initPlayablePuzzle();
-        if (id === "screen-video") autoPlayRomanticVideo();
-        if (id !== "screen-video") pauseRomanticVideo();
         if (id === "screen-quiz") {
           currentQIndex = 0;
           renderLoveQuestion();
@@ -1314,7 +1312,7 @@
       }
     }
 
-    /* REALTIME ROLLING COUNTDOWN (0 se shuru hokar rukne wala) */
+    /* REALTIME ROLLING COUNTDOWN */
     let countdownInterval = null;
     function startRollingCountdown(bdate) {
       if (countdownInterval) clearInterval(countdownInterval);
@@ -1333,20 +1331,17 @@
       const elH = document.getElementById("cHours");
       const elM = document.getElementById("cMins");
 
-      // Reset to 0
       elY.innerText = "0";
       elD.innerText = "0";
       elH.innerText = "0";
       elM.innerText = "0";
 
       const startTime = performance.now();
-      const duration = 1600; // 1.6s smooth rolling
+      const duration = 1600;
 
       function rollFrame(currentTime) {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        
-        // Easing out cubic for ultra-smooth stop
         const easeOut = 1 - Math.pow(1 - progress, 3);
 
         elY.innerText = Math.floor(easeOut * targetYears);
@@ -1357,7 +1352,6 @@
         if (progress < 1) {
           requestAnimationFrame(rollFrame);
         } else {
-          // Final exact values pe freeze
           elY.innerText = targetYears;
           elD.innerText = targetDays.toLocaleString();
           elH.innerText = targetHours.toLocaleString();
@@ -1366,52 +1360,6 @@
       }
 
       requestAnimationFrame(rollFrame);
-    }
-
-    /* SMART AUTO-PLAY VIDEO LOGIC */
-    const romanticVideo = document.getElementById("romanticVideo");
-
-    function autoPlayRomanticVideo() {
-      if (!romanticVideo) return;
-      // Temporarily pause background music so video audio is clear
-      if (bgSong && !bgSong.paused) {
-        bgSong.pause();
-        document.getElementById("musicBtn").innerText = "🔇";
-      }
-
-      romanticVideo.currentTime = 0;
-      const playPromise = romanticVideo.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          // Fallback if browser requires user gesture/muted
-          romanticVideo.muted = true;
-          romanticVideo.play().then(() => {
-            romanticVideo.muted = false;
-          }).catch(() => {});
-        });
-      }
-    }
-
-    function ensureVideoPlaying() {
-      triggerHaptic(20);
-      if (romanticVideo) {
-        if (romanticVideo.paused) {
-          romanticVideo.play();
-        } else {
-          romanticVideo.pause();
-        }
-      }
-    }
-
-    function pauseRomanticVideo() {
-      if (romanticVideo && !romanticVideo.paused) {
-        romanticVideo.pause();
-        // Resume bg song if needed
-        if (bgSong && bgSong.paused) {
-          bgSong.play().catch(() => {});
-          document.getElementById("musicBtn").innerText = "🎵";
-        }
-      }
     }
 
     function openMagicOrb() {
@@ -1482,58 +1430,37 @@
       document.getElementById("btnCakeNext").style.display = "inline-flex";
     }
 
-    // Memory Game
-    const memSymbols = ["💖", "🌸", "💍", "✨", "💖", "🌸", "💍", "✨"];
-    let flippedCards = [];
-    let matchedPairs = 0;
+    /* ROMANTIC LOVE FORTUNE WHEEL LOGIC */
+    let isWheelSpinning = false;
+    let wheelDeg = 0;
+    const fortunes = [
+      "Hamesha Tumhara Sath & Dher Saara Pyaar! 💖",
+      "Zindagi Ki Har Ek Khushi Tumhare Naam! ✨",
+      "Tumhare Chehre Ki Pyaari Muskurahat! 🌸",
+      "Har Janam Mein Sirf Tum! 👑💕",
+      "Dher Saare Warm Hugs & Comfort! 🫂❤️",
+      "Har Manzil Aur Sapna Tumhara Pura Ho! 💫"
+    ];
 
-    function initMemoryGame() {
-      const grid = document.getElementById("memoryGrid");
-      grid.innerHTML = "";
-      flippedCards = [];
-      matchedPairs = 0;
-      const shuffled = [...memSymbols].sort(() => Math.random() - 0.5);
+    function spinLoveWheel() {
+      if (isWheelSpinning) return;
+      isWheelSpinning = true;
+      triggerHaptic([40, 40, 60]);
 
-      shuffled.forEach((sym, idx) => {
-        const card = document.createElement("div");
-        card.className = "mem-card";
-        card.dataset.sym = sym;
-        card.dataset.idx = idx;
-        card.innerText = "❓";
-        card.onclick = () => flipMemoryCard(card);
-        grid.appendChild(card);
-      });
-    }
+      // Spin at least 5 to 7 full rotations + random angle
+      const extraSpins = Math.floor(Math.random() * 360) + 1800;
+      wheelDeg += extraSpins;
+      const wheel = document.getElementById("fortuneWheel");
+      wheel.style.transform = `rotate(${wheelDeg}deg)`;
 
-    function flipMemoryCard(card) {
-      if (card.classList.contains("flipped") || card.classList.contains("matched") || flippedCards.length === 2) return;
-      triggerHaptic(25);
-      card.classList.add("flipped");
-      card.innerText = card.dataset.sym;
-      flippedCards.push(card);
-
-      if (flippedCards.length === 2) {
-        const [c1, c2] = flippedCards;
-        if (c1.dataset.sym === c2.dataset.sym) {
-          c1.classList.add("matched");
-          c2.classList.add("matched");
-          matchedPairs++;
-          flippedCards = [];
-          triggerHaptic([30, 40]);
-          confetti({ particleCount: 20, spread: 45 });
-          if (matchedPairs === 4) {
-            document.getElementById("btnMemNext").style.display = "inline-flex";
-          }
-        } else {
-          setTimeout(() => {
-            c1.classList.remove("flipped");
-            c2.classList.remove("flipped");
-            c1.innerText = "❓";
-            c2.innerText = "❓";
-            flippedCards = [];
-          }, 500);
-        }
-      }
+      setTimeout(() => {
+        isWheelSpinning = false;
+        triggerHaptic([60, 60, 100]);
+        confetti({ particleCount: 60, spread: 75 });
+        const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+        document.getElementById("wheelFortuneText").innerText = `Fortune: "${randomFortune}" ✨`;
+        document.getElementById("btnWheelNext").style.display = "inline-flex";
+      }, 3500);
     }
 
     // Piano Audio
@@ -1689,7 +1616,7 @@
       document.getElementById("btnPuzzleNext").style.display = "inline-flex";
     }
 
-    // Scratch
+    // Scratch Card
     const scCvs = document.getElementById("scratchCanvas");
     const sCtx = scCvs.getContext("2d");
     sCtx.fillStyle = "#8a7380";
@@ -1837,26 +1764,49 @@ Love you more than words can ever explain. 💕
 
 — Yours, Harsh ❤️`;
 
+    let diaryTypingTimer = null;
+    let charPos = 0;
+    let diaryComplete = false;
+
     function openSecretDiary() {
       triggerHaptic(40);
       document.getElementById("diaryCover").style.display = "none";
       const pages = document.getElementById("diaryPages");
       pages.style.display = "block";
       pages.innerText = "";
+      charPos = 0;
+      diaryComplete = false;
 
-      let charPos = 0;
       function typeCharByChar() {
+        if (diaryComplete) return;
         if (charPos < diaryRawText.length) {
           pages.innerText += diaryRawText.charAt(charPos);
           pages.scrollTop = pages.scrollHeight;
           charPos++;
-          setTimeout(typeCharByChar, 18);
+          // Calm, comfortable reading cadence (48ms)
+          diaryTypingTimer = setTimeout(typeCharByChar, 48);
         } else {
-          document.getElementById("btnReplay").style.display = "inline-flex";
-          confetti({ particleCount: 85, spread: 85, origin: { y: 0.5 } });
+          finishDiary();
         }
       }
       typeCharByChar();
+    }
+
+    function fastForwardDiary() {
+      if (!diaryComplete) {
+        triggerHaptic(30);
+        clearTimeout(diaryTypingTimer);
+        const pages = document.getElementById("diaryPages");
+        pages.innerText = diaryRawText;
+        pages.scrollTop = pages.scrollHeight;
+        finishDiary();
+      }
+    }
+
+    function finishDiary() {
+      diaryComplete = true;
+      document.getElementById("btnReplay").style.display = "inline-flex";
+      confetti({ particleCount: 85, spread: 85, origin: { y: 0.5 } });
     }
   </script>
 </body>
